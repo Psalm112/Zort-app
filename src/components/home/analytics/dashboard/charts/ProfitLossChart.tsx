@@ -26,7 +26,6 @@ const CustomTooltip = ({
   label?: string;
   payload?: ChartItemArray;
 }) => {
-  console.log(active, label, payload);
   if (active && payload && payload.length) {
     const value = payload[0].value;
     const isPositive = value >= 0;

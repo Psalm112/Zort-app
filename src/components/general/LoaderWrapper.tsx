@@ -8,10 +8,13 @@ interface LoadingWrapperProps {
   children: ReactNode;
 }
 
-const LoaderWrapper: React.FC<LoadingWrapperProps> = ({ children }) => {
+// This wrapper can be used around your main content components
+const LoadingWrapper: React.FC<LoadingWrapperProps> = ({ children }) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
+    // Simulate content loading
+    // Replace this with your actual content loading logic if needed
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 2500);
@@ -30,4 +33,4 @@ const LoaderWrapper: React.FC<LoadingWrapperProps> = ({ children }) => {
   );
 };
 
-export default LoaderWrapper;
+export default LoadingWrapper;

@@ -1,10 +1,8 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import { Suspense } from "react";
-import AOS from "aos";
-import "aos/dist/aos.css";
 import Hero from "@/components/home/Hero";
 import Features from "@/components/home/Features";
 import Workflow from "@/components/home/Workflow";
@@ -14,37 +12,19 @@ import FAQ from "@/components/general/FAQ";
 import Pricing from "@/components/home/Pricing";
 import { FaqItemProps } from "@/types/features";
 
+// Dynamic imports with no-SSR option
 const AnalyticsDashboard = dynamic(
   () => import("@/components/home/analytics/dashboard/AnalyticsDashboard"),
-  {
-    ssr: false,
-    loading: () => (
-      <div className="h-96 flex items-center justify-center">
-        Loading dashboard...
-      </div>
-    ),
-  }
+  { ssr: false }
 );
 
 const SocialBetting = dynamic(() => import("@/components/home/SocialBetting"), {
   ssr: false,
-  loading: () => (
-    <div className="h-64 flex items-center justify-center">
-      Loading social features...
-    </div>
-  ),
 });
 
 const Testimonials = dynamic(
   () => import("@/components/general/Testimonials"),
-  {
-    ssr: false,
-    loading: () => (
-      <div className="h-64 flex items-center justify-center">
-        Loading testimonials...
-      </div>
-    ),
-  }
+  { ssr: false }
 );
 
 const faqs: FaqItemProps[] = [
@@ -86,22 +66,52 @@ const faqs: FaqItemProps[] = [
 ];
 
 export default function Home() {
-  useEffect(() => {
-    // Initialize AOS with a cleanup function to prevent memory leaks
-    AOS.init({
-      duration: 800,
-      once: false,
-      easing: "ease-out-cubic",
-      mirror: true,
-      offset: 100,
-      disable: window.innerWidth < 768 ? true : false,
-    });
+  const [isClient, setIsClient] = useState(false);
 
-    const handleResize = () => {
-      AOS.refresh();
+  useEffect(() => {
+    setIsClient(true);
+
+    // Import AOS only on client-side
+    const initAOS = async () => {
+      try {
+        const AOSModule = await import("aos");
+        const AOS = AOSModule.default;
+        require("aos/dist/aos.css");
+
+        AOS.init({
+          duration: 800,
+          once: false,
+          easing: "ease-out-cubic",
+          mirror: true,
+          offset: 100,
+          disable: window.innerWidth < 768,
+        });
+
+        return AOS;
+      } catch (error) {
+        console.error("Failed to initialize AOS:", error);
+        return null;
+      }
     };
 
-    window.addEventListener("resize", handleResize);
+    let aosInstance: typeof import("aos").default | null = null;
+
+    initAOS().then((aos) => {
+      if (!aos) return;
+
+      aosInstance = aos;
+
+      const handleResize = () => {
+        aosInstance?.refresh();
+      };
+
+      window.addEventListener("resize", handleResize);
+
+      // Return cleanup function
+      return () => {
+        window.removeEventListener("resize", handleResize);
+      };
+    });
 
     // Smooth scroll implementation
     const anchors = document.querySelectorAll('a[href^="#"]');
@@ -128,7 +138,6 @@ export default function Home() {
 
     // Clean up all event listeners on unmount
     return () => {
-      window.removeEventListener("resize", handleResize);
       anchors.forEach((anchor) => {
         const handler = anchorClickHandlers.get(anchor);
         if (handler) {
@@ -137,6 +146,17 @@ export default function Home() {
       });
     };
   }, []);
+
+  // Default loading components
+  const loadingDashboard = (
+    <div className="h-96 flex items-center justify-center">
+      Loading analytics dashboard...
+    </div>
+  );
+
+  const loadingSection = (
+    <div className="h-64 flex items-center justify-center">Loading...</div>
+  );
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-black to-gray-900 text-white overflow-hidden">
@@ -152,34 +172,10 @@ export default function Home() {
       <div className="relative z-10">
         <Hero />
         <Features />
-        <Suspense
-          fallback={
-            <div className="h-96 flex items-center justify-center">
-              Loading analytics dashboard...
-            </div>
-          }
-        >
-          <AnalyticsDashboard />
-        </Suspense>
+        {isClient ? <AnalyticsDashboard /> : loadingDashboard}
         <Workflow />
-        <Suspense
-          fallback={
-            <div className="h-64 flex items-center justify-center">
-              Loading social features...
-            </div>
-          }
-        >
-          <SocialBetting />
-        </Suspense>
-        <Suspense
-          fallback={
-            <div className="h-64 flex items-center justify-center">
-              Loading testimonials...
-            </div>
-          }
-        >
-          <Testimonials />
-        </Suspense>
+        {isClient ? <SocialBetting /> : loadingSection}
+        {isClient ? <Testimonials /> : loadingSection}
         <Partners />
         <Pricing />
         <FAQ

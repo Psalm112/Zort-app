@@ -36,7 +36,7 @@ export const metadata: Metadata = {
   ],
   creator: "ZORT",
   themeColor: "#6D28D9",
-  viewport: "width=device-width, initial-scale=1",
+  viewport: "width=device-width, initial-scale=1, user-scalable=no",
   robots: {
     index: true,
     follow: true,
@@ -58,9 +58,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased min-h-screen bg-gradient-to-b from-black to-gray-900 text-white overflow-x-hidden`}
+        suppressHydrationWarning
       >
         <LoaderWrapper>
           <Navbar />

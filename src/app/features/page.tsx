@@ -1,9 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
-import { Suspense } from "react";
-import AOS from "aos";
-import "aos/dist/aos.css";
+import React, { useEffect, useState } from "react";
 import CoreFeatures from "@/components/features/CoreFeatures";
 import DetailedFeatures from "@/components/features/DetailedFeatures";
 import FAQ from "@/components/general/FAQ";
@@ -50,55 +47,65 @@ const faqs: FaqItemProps[] = [
 ];
 
 export default function FeaturesPage() {
+  const [isClient, setIsClient] = useState(false);
+
   useEffect(() => {
-    // Initialize AOS with a cleanup function to prevent memory leaks
-    AOS.init({
-      duration: 800,
-      once: false,
-      easing: "ease-out-cubic",
-      offset: 100,
-      disable: window.innerWidth < 768 ? true : false,
-    });
+    setIsClient(true);
 
-    const handleResize = () => {
-      AOS.refresh();
-    };
+    // AOS setup
+    (async () => {
+      const AOS = (await import("aos")).default;
+      // @ts-ignore
+      await import("aos/dist/aos.css");
 
-    window.addEventListener("resize", handleResize);
+      AOS.init({
+        duration: 800,
+        once: false,
+        easing: "ease-out-cubic",
+        offset: 100,
+        disable: window.innerWidth < 768,
+      });
 
-    // Smooth scroll implementation with proper cleanup
-    const anchors = document.querySelectorAll('a[href^="#"]');
-    const anchorClickHandlers = new Map();
-
-    anchors.forEach((anchor) => {
-      const handler = function (e: Event) {
-        e.preventDefault();
-        const href = anchor.getAttribute("href");
-        if (!href) return;
-
-        const target = document.querySelector(href);
-        if (!target) return;
-
-        window.scrollTo({
-          top: (target as HTMLElement).offsetTop - 80,
-          behavior: "smooth",
-        });
+      const handleResize = () => {
+        AOS.refresh();
       };
 
-      anchorClickHandlers.set(anchor, handler);
-      anchor.addEventListener("click", handler);
-    });
+      window.addEventListener("resize", handleResize);
 
-    // Clean up all event listeners on unmount
-    return () => {
-      window.removeEventListener("resize", handleResize);
+      // Smooth scroll implementation
+      const anchors = document.querySelectorAll('a[href^="#"]');
+      const anchorClickHandlers = new Map();
+
       anchors.forEach((anchor) => {
-        const handler = anchorClickHandlers.get(anchor);
-        if (handler) {
-          anchor.removeEventListener("click", handler);
-        }
+        const handler = function (e: Event) {
+          e.preventDefault();
+          const href = anchor.getAttribute("href");
+          if (!href) return;
+
+          const target = document.querySelector(href);
+          if (!target) return;
+
+          window.scrollTo({
+            top: (target as HTMLElement).offsetTop - 80,
+            behavior: "smooth",
+          });
+        };
+
+        anchorClickHandlers.set(anchor, handler);
+        anchor.addEventListener("click", handler);
       });
-    };
+
+      // Return combined cleanup
+      return () => {
+        window.removeEventListener("resize", handleResize);
+        anchors.forEach((anchor) => {
+          const handler = anchorClickHandlers.get(anchor);
+          if (handler) {
+            anchor.removeEventListener("click", handler);
+          }
+        });
+      };
+    })();
   }, []);
 
   return (
@@ -111,33 +118,9 @@ export default function FeaturesPage() {
       </div>
 
       <div className="relative z-10">
-        <Suspense
-          fallback={
-            <div className="h-64 flex items-center justify-center">
-              Loading hero section...
-            </div>
-          }
-        >
-          <Hero />
-        </Suspense>
-        <Suspense
-          fallback={
-            <div className="h-64 flex items-center justify-center">
-              Loading core features...
-            </div>
-          }
-        >
-          <CoreFeatures />
-        </Suspense>
-        <Suspense
-          fallback={
-            <div className="h-64 flex items-center justify-center">
-              Loading detailed features...
-            </div>
-          }
-        >
-          <DetailedFeatures />
-        </Suspense>
+        <Hero />
+        <CoreFeatures />
+        <DetailedFeatures />
         <FAQ
           faqItems={faqs}
           headerDesc="Get answers to common questions about Zort's features and

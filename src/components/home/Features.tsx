@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Scan, BarChart2, Brain, Shield, ChevronRight } from "lucide-react";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 const features = [
   {
@@ -30,6 +31,12 @@ const features = [
 ];
 
 const Features = () => {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -59,57 +66,98 @@ const Features = () => {
           <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto"></div>
         </div>
 
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12"
-        >
-          {features.map((feature, index) => {
-            const Icon = feature.icon;
-            return (
-              <motion.div
-                key={index}
-                variants={itemVariants}
-                className="bg-gray-800 bg-opacity-50 backdrop-blur-lg rounded-xl p-6 border border-gray-700 hover:border-blue-500 transition-all duration-300 group"
-                data-aos="fade-up"
-                data-aos-delay={100 * index}
-              >
-                <Link href={`/features/#${feature.id}`} className="block">
-                  <div className="flex flex-col items-center text-center">
-                    <div className="w-16 h-16 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                      <Icon size={28} className="text-white" />
+        {isClient ? (
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12"
+          >
+            {features.map((feature, index) => {
+              const Icon = feature.icon;
+              return (
+                <motion.div
+                  key={index}
+                  variants={itemVariants}
+                  className="bg-gray-800 bg-opacity-50 backdrop-blur-lg rounded-xl p-6 border border-gray-700 hover:border-blue-500 transition-all duration-300 group"
+                  data-aos="fade-up"
+                  data-aos-delay={100 * index}
+                >
+                  <Link href={`/features/#${feature.id}`} className="block">
+                    <div className="flex flex-col items-center text-center">
+                      <div className="w-16 h-16 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                        <Icon size={28} className="text-white" />
+                      </div>
+
+                      <h3 className="text-xl font-semibold mb-3 text-white group-hover:text-blue-400 transition-colors duration-300">
+                        {feature.title}
+                      </h3>
+
+                      <p className="text-gray-400 group-hover:text-gray-300 transition-colors duration-300">
+                        {feature.description}
+                      </p>
                     </div>
+                  </Link>
+                </motion.div>
+              );
+            })}
+          </motion.div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+            {features.map((feature, index) => {
+              const Icon = feature.icon;
+              return (
+                <div
+                  key={index}
+                  className="bg-gray-800 bg-opacity-50 backdrop-blur-lg rounded-xl p-6 border border-gray-700 hover:border-blue-500 transition-all duration-300 group"
+                >
+                  <Link href={`/features/#${feature.id}`} className="block">
+                    <div className="flex flex-col items-center text-center">
+                      <div className="w-16 h-16 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                        <Icon size={28} className="text-white" />
+                      </div>
 
-                    <h3 className="text-xl font-semibold mb-3 text-white group-hover:text-blue-400 transition-colors duration-300">
-                      {feature.title}
-                    </h3>
+                      <h3 className="text-xl font-semibold mb-3 text-white group-hover:text-blue-400 transition-colors duration-300">
+                        {feature.title}
+                      </h3>
 
-                    <p className="text-gray-400 group-hover:text-gray-300 transition-colors duration-300">
-                      {feature.description}
-                    </p>
-                  </div>
-                </Link>
-              </motion.div>
-            );
-          })}
-        </motion.div>
+                      <p className="text-gray-400 group-hover:text-gray-300 transition-colors duration-300">
+                        {feature.description}
+                      </p>
+                    </div>
+                  </Link>
+                </div>
+              );
+            })}
+          </div>
+        )}
 
-        <motion.div
-          className="flex justify-center"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6, duration: 0.5 }}
-          viewport={{ once: true }}
-        >
-          <Link href="/features" className="block">
-            <div className="flex items-center justify-center space-x-1 text-white font-medium py-2 md:py-3 px-4 md:px-6 rounded-full border border-gray-700 hover:border-blue-400 transition-all duration-300 cursor-pointer">
-              <span>View All Features</span>
-              <ChevronRight size={14} />
-            </div>
-          </Link>
-        </motion.div>
+        {isClient ? (
+          <motion.div
+            className="flex justify-center"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6, duration: 0.5 }}
+            viewport={{ once: true }}
+          >
+            <Link href="/features" className="block">
+              <div className="flex items-center justify-center space-x-1 text-white font-medium py-2 md:py-3 px-4 md:px-6 rounded-full border border-gray-700 hover:border-blue-400 transition-all duration-300 cursor-pointer">
+                <span>View All Features</span>
+                <ChevronRight size={14} />
+              </div>
+            </Link>
+          </motion.div>
+        ) : (
+          <div className="flex justify-center">
+            <Link href="/features" className="block">
+              <div className="flex items-center justify-center space-x-1 text-white font-medium py-2 md:py-3 px-4 md:px-6 rounded-full border border-gray-700 hover:border-blue-400 transition-all duration-300 cursor-pointer">
+                <span>View All Features</span>
+                <ChevronRight size={14} />
+              </div>
+            </Link>
+          </div>
+        )}
       </div>
 
       {/* Background Elements */}

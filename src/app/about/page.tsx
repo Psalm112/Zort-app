@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
-import { Suspense } from "react";
+import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import Hero from "@/components/about/Hero";
 import OurMission from "@/components/about/Mission";
@@ -11,45 +10,47 @@ import TheTeam from "@/components/about/Team";
 import Contact from "@/components/general/Contact";
 import Community from "@/components/general/Community";
 import CallToAction from "@/components/general/CallToAction";
-import AOS from "aos";
-import "aos/dist/aos.css";
 
 const Testimonials = dynamic(
   () => import("@/components/general/Testimonials"),
-  {
-    ssr: false,
-    loading: () => (
-      <div className="h-64 flex items-center justify-center">
-        Loading testimonials...
-      </div>
-    ),
-  }
+  { ssr: false }
 );
 
 export default function About() {
+  const [isClient, setIsClient] = useState(false);
+
   useEffect(() => {
+    setIsClient(true);
     window.scrollTo(0, 0);
 
-    // Initialize AOS with proper cleanup
-    AOS.init({
-      duration: 800,
-      once: false,
-      easing: "ease-out-cubic",
-      offset: 100,
-      disable: window.innerWidth < 768 ? true : false,
-    });
+    // AOS setup
+    (async () => {
+      const AOS = (await import("aos")).default;
+      // @ts-ignore
+      await import("aos/dist/aos.css");
 
-    const handleResize = () => {
-      AOS.refresh();
-    };
+      AOS.init({
+        duration: 800,
+        once: false,
+        easing: "ease-out-cubic",
+        offset: 100,
+        disable: window.innerWidth < 768,
+      });
 
-    window.addEventListener("resize", handleResize);
+      const handleResize = () => {
+        AOS.refresh();
+      };
 
-    // Clean up event listeners on unmount
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
+      window.addEventListener("resize", handleResize);
+      return () => {
+        window.removeEventListener("resize", handleResize);
+      };
+    })();
   }, []);
+
+  const loadingSection = (
+    <div className="h-64 flex items-center justify-center">Loading...</div>
+  );
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-black to-gray-900 text-white overflow-hidden">
@@ -61,28 +62,12 @@ export default function About() {
       </div>
 
       <div className="relative z-10">
-        <Suspense
-          fallback={
-            <div className="h-64 flex items-center justify-center">
-              Loading hero section...
-            </div>
-          }
-        >
-          <Hero />
-        </Suspense>
+        <Hero />
         <OurMission />
         <WhyZort />
         <OurStory />
         <TheTeam />
-        <Suspense
-          fallback={
-            <div className="h-64 flex items-center justify-center text-[#fff]">
-              Loading testimonials...
-            </div>
-          }
-        >
-          <Testimonials />
-        </Suspense>
+        {isClient ? <Testimonials /> : loadingSection}
         <Contact />
         <Community />
         <CallToAction />

@@ -1,37 +1,44 @@
 "use client";
 
-import React, { useEffect } from "react";
-import { Suspense } from "react";
+import React, { useEffect, useState } from "react";
 import TroubleshootingGuides from "@/components/support/TroubleshootingGuides";
 import SupportCta from "@/components/support/SupportCta";
 import FAQ from "@/components/support/AllFAQ";
 import Hero from "@/components/support/Hero";
 import Contact from "@/components/general/Contact";
 import Community from "@/components/general/Community";
-import AOS from "aos";
-import "aos/dist/aos.css";
 
 export default function SupportPage() {
+  const [isClient, setIsClient] = useState(false);
+
   useEffect(() => {
-    // Initialize AOS with proper cleanup
-    AOS.init({
-      duration: 800,
-      once: false,
-      easing: "ease-out-cubic",
-      offset: 100,
-      disable: window.innerWidth < 768 ? true : false,
-    });
+    setIsClient(true);
 
-    const handleResize = () => {
-      AOS.refresh();
-    };
+    // AOS setup
+    (async () => {
+      const AOS = (await import("aos")).default;
+      // @ts-ignore
+      await import("aos/dist/aos.css");
 
-    window.addEventListener("resize", handleResize);
+      AOS.init({
+        duration: 800,
+        once: false,
+        easing: "ease-out-cubic",
+        offset: 100,
+        disable: window.innerWidth < 768,
+      });
 
-    // Clean up event listeners on unmount
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
+      const handleResize = () => {
+        AOS.refresh();
+      };
+
+      window.addEventListener("resize", handleResize);
+
+      // Return cleanup
+      return () => {
+        window.removeEventListener("resize", handleResize);
+      };
+    })();
   }, []);
 
   return (
@@ -44,51 +51,11 @@ export default function SupportPage() {
       </div>
 
       <div className="relative z-10">
-        <Suspense
-          fallback={
-            <div className="h-64 flex items-center justify-center">
-              Loading hero section...
-            </div>
-          }
-        >
-          <Hero />
-        </Suspense>
-        <Suspense
-          fallback={
-            <div className="h-64 flex items-center justify-center">
-              Loading contact section...
-            </div>
-          }
-        >
-          <Contact />
-        </Suspense>
-        <Suspense
-          fallback={
-            <div className="h-96 flex items-center justify-center">
-              Loading FAQ section...
-            </div>
-          }
-        >
-          <FAQ />
-        </Suspense>
-        <Suspense
-          fallback={
-            <div className="h-64 flex items-center justify-center">
-              Loading troubleshooting guides...
-            </div>
-          }
-        >
-          <TroubleshootingGuides />
-        </Suspense>
-        <Suspense
-          fallback={
-            <div className="h-64 flex items-center justify-center">
-              Loading community section...
-            </div>
-          }
-        >
-          <Community />
-        </Suspense>
+        <Hero />
+        <Contact />
+        <FAQ />
+        <TroubleshootingGuides />
+        <Community />
         <SupportCta />
       </div>
     </div>
