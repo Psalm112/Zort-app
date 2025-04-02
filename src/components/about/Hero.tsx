@@ -1,12 +1,19 @@
 "use client";
-import { useRef } from "react";
+import { useRef, useState, Suspense, lazy, useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Link from "next/link";
-import { Download, ChevronRight } from "lucide-react";
+import { Download, ChevronRight, Loader } from "lucide-react";
+
+const LazyVideo = lazy(() => import("@/components/general/LazyVideo"));
 
 const Hero = () => {
-  //   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
 
   const { scrollYProgress } = useScroll({
@@ -31,16 +38,6 @@ const Hero = () => {
             className="lg:col-span-5 text-center lg:text-left z-10"
             style={{ opacity, y }}
           >
-            {/* <motion.div
-              className="inline-block px-4 py-1 mb-6 rounded-full bg-gradient-to-r from-blue-600/20 to-purple-600/20 border border-blue-500/30"
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1, duration: 0.5 }}
-            >
-              <span className="text-sm font-medium bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
-                AI-Powered Bet Analysis
-              </span>
-            </motion.div> */}
             <motion.h1
               className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4 md:mb-6"
               initial={{ opacity: 0, y: -20 }}
@@ -89,24 +86,6 @@ const Hero = () => {
                 </motion.div>
               </Link>
             </motion.div>
-            {/* <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.8, duration: 0.6 }}
-              className="flex items-center justify-center lg:justify-start mt-8 text-sm text-gray-400"
-            >
-              <div className="flex -space-x-2 mr-3">
-                {[1, 2, 3, 4].map((i) => (
-                  <div
-                    key={i}
-                    className={`w-8 h-8 rounded-full border-2 border-gray-900 bg-gradient-to-br from-blue-${
-                      i * 100
-                    } to-purple-${i * 100}`}
-                  ></div>
-                ))}
-              </div>
-              <span>Trusted by 10,000+ bettors worldwide</span>
-            </motion.div> */}
           </motion.div>
 
           {/* Video Container */}
@@ -119,20 +98,36 @@ const Hero = () => {
           >
             <div className="relative w-full max-w-2xl pt-8 pb-8 px-6 md:px-12">
               <div className="relative w-full aspect-video overflow-hidden rounded-2xl">
-                <video
-                  ref={videoRef}
-                  className="w-full h-full object-cover absolute inset-0"
-                  poster="https://via.placeholder.com/800x450.png?text=Video+Thumbnail"
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  //   onLoadedData={() => setIsVideoLoaded(true)}
+                {/* Placeholder gradient with animated loading */}
+                {!isVideoLoaded && (
+                  <div className="absolute inset-0 bg-gradient-to-br from-gray-900 to-gray-800 flex items-center justify-center">
+                    <div className="text-center">
+                      <div className="inline-block w-12 h-12 rounded-full border-4 border-blue-500/20 border-t-blue-500 animate-spin mb-3"></div>
+                      <p className="text-gray-400 text-sm">Loading video...</p>
+                    </div>
+                  </div>
+                )}
+
+                {/* Suspense for lazy loading video */}
+                <Suspense
+                  fallback={
+                    <div className="absolute inset-0 flex items-center justify-center bg-gray-900">
+                      <div className="animate-pulse flex flex-col items-center">
+                        <Loader className="w-8 h-8 text-blue-500 animate-spin" />
+                        <span className="mt-2 text-sm text-gray-400">
+                          Loading
+                        </span>
+                      </div>
+                    </div>
+                  }
                 >
-                  <source src="/videos/about.mp4" type="video/mp4" />
-                  Your browser does not support the video tag.
-                </video>
+                  <LazyVideo
+                    src="/videos/about.mp4"
+                    onLoaded={() => setIsVideoLoaded(true)}
+                  />
+                </Suspense>
               </div>
+
               {/* Floating Feature Cards */}
               <motion.div
                 className="hidden md:block absolute bottom-10 left-10 p-2 bg-gray-900/70 backdrop-blur-sm rounded-lg shadow-lg border border-gray-800 z-20"
@@ -220,26 +215,27 @@ const Hero = () => {
 
       {/* Decorative particles */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {[...Array(15)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-1 h-1 bg-blue-400 rounded-full opacity-20"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              y: [0, Math.random() * -100],
-              opacity: [0.2, 0],
-            }}
-            transition={{
-              duration: 3 + Math.random() * 5,
-              repeat: Infinity,
-              delay: Math.random() * 5,
-              ease: "easeOut",
-            }}
-          />
-        ))}
+        {isMounted &&
+          [...Array(15)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute w-1 h-1 bg-blue-400 rounded-full opacity-20"
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+              }}
+              animate={{
+                y: [0, Math.random() * -100],
+                opacity: [0.2, 0],
+              }}
+              transition={{
+                duration: 3 + Math.random() * 5,
+                repeat: Infinity,
+                delay: Math.random() * 5,
+                ease: "easeOut",
+              }}
+            />
+          ))}
       </div>
     </section>
   );

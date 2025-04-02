@@ -1,14 +1,10 @@
 "use client";
-import { useRef } from "react";
+import { useRef, Suspense, lazy } from "react";
 import { motion, useInView } from "framer-motion";
-import Image from "next/image";
 import { BsGithub, BsLinkedin, BsTwitterX } from "react-icons/bs";
 import { ChevronRight } from "lucide-react";
 
-import CEO from "../../../public/images/team/ceo.jpg";
-import CTO from "../../../public/images/team/cto.jpg";
-import HeadofProduct from "../../../public/images/team/headofproduct.jpg";
-import LeadDataScientist from "../../../public/images/team/datascientist.jpg";
+const LazyTeamMember = lazy(() => import("./LazyTeamMember"));
 
 const TheTeam = () => {
   const ref = useRef(null);
@@ -19,7 +15,7 @@ const TheTeam = () => {
       name: "Alex Morgan",
       role: "Founder & CEO",
       bio: "Former sports analyst with a passion for data science and betting optimization.",
-      imagePath: CEO,
+      imagePath: "/images/team/ceo.jpg",
       social: {
         linkedin: "#",
         twitter: "#",
@@ -30,7 +26,7 @@ const TheTeam = () => {
       name: "Sarah Chen",
       role: "CTO",
       bio: "AI expert with a background in developing machine learning solutions for financial analytics.",
-      imagePath: CTO,
+      imagePath: "/images/team/cto.jpg",
       social: {
         linkedin: "#",
         twitter: "#",
@@ -41,7 +37,7 @@ const TheTeam = () => {
       name: "James Wilson",
       role: "Head of Product",
       bio: "UX specialist focused on creating intuitive interfaces for complex data visualization.",
-      imagePath: HeadofProduct,
+      imagePath: "/images/team/headofproduct.jpg",
       social: {
         linkedin: "#",
         twitter: "#",
@@ -52,7 +48,7 @@ const TheTeam = () => {
       name: "Maya Patel",
       role: "Lead Data Scientist",
       bio: "Statistics PhD with expertise in predictive modeling and betting trend analysis.",
-      imagePath: LeadDataScientist,
+      imagePath: "/images/team/datascientist.jpg",
       social: {
         linkedin: "#",
         twitter: "#",
@@ -115,12 +111,20 @@ const TheTeam = () => {
               className="bg-gray-800/40 h-full backdrop-blur-sm rounded-2xl border border-gray-700 overflow-hidden hover:border-blue-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10 group"
             >
               <div className="h-48 max-md:h-82 relative overflow-hidden">
-                <Image
-                  src={member.imagePath}
-                  alt={member.name}
-                  fill
-                  className="object-cover object-top transition-transform duration-500 group-hover:scale-110"
-                />
+                {/* Simple div placeholder while image loads */}
+                <div className="absolute inset-0 bg-gradient-to-b from-gray-700 to-gray-800 flex items-center justify-center">
+                  <div className="w-12 h-12 rounded-full border-2 border-t-transparent border-blue-400 animate-spin"></div>
+                </div>
+
+                {/* Suspense and lazy loaded image */}
+                <Suspense fallback={null}>
+                  <LazyTeamMember
+                    src={member.imagePath}
+                    alt={member.name}
+                    priority={index < 2}
+                  />
+                </Suspense>
+
                 <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent opacity-60" />
               </div>
               <div className="p-6">
