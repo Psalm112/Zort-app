@@ -38,11 +38,10 @@ FeatureIndicator.displayName = "FeatureIndicator";
 
 const ScreenIndicator = memo(
   ({
-    index,
     isActive,
     onClick,
   }: {
-    index: number;
+    index?: number;
     isActive: boolean;
     onClick: () => void;
   }) => (
