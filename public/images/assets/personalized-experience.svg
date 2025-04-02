@@ -1,0 +1,177 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400">
+  <!-- Dark background -->
+  <rect width="600" height="400" fill="#121218" rx="20" ry="20"/>
+  
+  <!-- Grid lines -->
+  <g stroke="#2a2a35" stroke-width="1" opacity="0.4">
+    <line x1="50" y1="50" x2="550" y2="50"/>
+    <line x1="50" y1="100" x2="550" y2="100"/>
+    <line x1="50" y1="150" x2="550" y2="150"/>
+    <line x1="50" y1="200" x2="550" y2="200"/>
+    <line x1="50" y1="250" x2="550" y2="250"/>
+    <line x1="50" y1="300" x2="550" y2="300"/>
+    <line x1="50" y1="350" x2="550" y2="350"/>
+  </g>
+  
+  <!-- Main dashboard frame -->
+  <rect x="100" y="80" width="400" height="280" rx="15" ry="15" fill="#1a1a24" stroke="#3a3a48" stroke-width="2"/>
+  
+  <!-- Header bar -->
+  <rect x="100" y="80" width="400" height="40" rx="15" ry="15" fill="#24243a"/>
+  <text x="140" y="105" font-family="Arial" font-size="16" fill="#ffffff" font-weight="bold">Personalized Dashboard</text>
+  
+  <!-- User avatar circle -->
+  <circle cx="470" cy="100" r="15" fill="#7c3aed"/>
+  <path d="M470,95 A5,5 0 0,1 470,105 A5,5 0 0,1 470,95" fill="#ffffff"/>
+  <circle cx="470" cy="115" r="8" fill="#ffffff" stroke="#7c3aed" stroke-width="1"/>
+  
+  <!-- Widget grid -->
+  <!-- Widget 1 - Stats (draggable) -->
+  <g>
+    <rect x="120" y="140" width="170" height="100" rx="10" ry="10" fill="#24243a" stroke="#3a3a48" stroke-width="1"/>
+    <!-- Drag handle -->
+    <rect x="125" y="145" width="160" height="15" rx="5" ry="5" fill="#2a2a35"/>
+    <circle cx="135" cy="152" r="3" fill="#7c3aed"/>
+    <circle cx="145" cy="152" r="3" fill="#7c3aed"/>
+    <circle cx="155" cy="152" r="3" fill="#7c3aed"/>
+    <text x="200" y="157" font-family="Arial" font-size="10" fill="#ffffff" text-anchor="middle">STATS</text>
+    
+    <!-- Widget content -->
+    <rect x="130" y="170" width="70" height="60" rx="5" ry="5" fill="#1a1a24"/>
+    <text x="165" y="195" font-family="Arial" font-size="12" fill="#ffffff" text-anchor="middle">Wins</text>
+    <text x="165" y="215" font-family="Arial" font-size="16" fill="#7c3aed" text-anchor="middle" font-weight="bold">64%</text>
+    
+    <rect x="210" y="170" width="70" height="60" rx="5" ry="5" fill="#1a1a24"/>
+    <text x="245" y="195" font-family="Arial" font-size="12" fill="#ffffff" text-anchor="middle">Profit</text>
+    <text x="245" y="215" font-family="Arial" font-size="16" fill="#4ade80" text-anchor="middle" font-weight="bold">+£347</text>
+    
+    <!-- Animation for draggable -->
+    <animateTransform 
+      attributeName="transform" 
+      type="translate" 
+      values="0,0; 0,-5; 0,0" 
+      dur="3s" 
+      begin="1s"
+      repeatCount="1"/>
+  </g>
+  
+  <!-- Widget 2 - Favorites -->
+  <g>
+    <rect x="310" y="140" width="170" height="100" rx="10" ry="10" fill="#24243a" stroke="#3a3a48" stroke-width="1"/>
+    <!-- Drag handle -->
+    <rect x="315" y="145" width="160" height="15" rx="5" ry="5" fill="#2a2a35"/>
+    <circle cx="325" cy="152" r="3" fill="#7c3aed"/>
+    <circle cx="335" cy="152" r="3" fill="#7c3aed"/>
+    <circle cx="345" cy="152" r="3" fill="#7c3aed"/>
+    <text x="390" y="157" font-family="Arial" font-size="10" fill="#ffffff" text-anchor="middle">FAVORITES</text>
+    
+    <!-- Widget content -->
+    <rect x="320" y="170" width="150" height="25" rx="5" ry="5" fill="#1a1a24"/>
+    <circle cx="335" cy="182" r="8" fill="#7c3aed"/>
+    <text x="335" cy="186" font-family="Arial" font-size="12" fill="#ffffff" text-anchor="middle">⚽</text>
+    <text x="360" y="185" font-family="Arial" font-size="12" fill="#ffffff">Premier League</text>
+    
+    <rect x="320" y="205" width="150" height="25" rx="5" ry="5" fill="#1a1a24"/>
+    <circle cx="335" cy="217" r="8" fill="#7c3aed"/>
+    <text x="335" cy="221" font-family="Arial" font-size="12" fill="#ffffff" text-anchor="middle">🏀</text>
+    <text x="360" y="220" font-family="Arial" font-size="12" fill="#ffffff">NBA</text>
+    
+    <!-- Animation for draggable -->
+    <animateTransform 
+      attributeName="transform" 
+      type="translate" 
+      values="0,0; 0,-5; 0,0" 
+      dur="3s" 
+      begin="2s"
+      repeatCount="1"/>
+  </g>
+  
+  <!-- Widget 3 - Theme Settings -->
+  <g>
+    <rect x="120" y="250" width="170" height="90" rx="10" ry="10" fill="#24243a" stroke="#3a3a48" stroke-width="1"/>
+    <!-- Drag handle -->
+    <rect x="125" y="255" width="160" height="15" rx="5" ry="5" fill="#2a2a35"/>
+    <circle cx="135" cy="262" r="3" fill="#7c3aed"/>
+    <circle cx="145" cy="262" r="3" fill="#7c3aed"/>
+    <circle cx="155" cy="262" r="3" fill="#7c3aed"/>
+    <text x="200" y="267" font-family="Arial" font-size="10" fill="#ffffff" text-anchor="middle">THEME</text>
+    
+    <!-- Theme options -->
+    <circle cx="145" cy="295" r="12" fill="#121218" stroke="#ffffff" stroke-width="2"/>
+    <circle cx="175" cy="295" r="12" fill="#7c3aed"/>
+    <circle cx="205" cy="295" r="12" fill="#3b82f6"/>
+    <circle cx="235" cy="295" r="12" fill="#10b981"/>
+    
+    <!-- Selected indicator -->
+    <circle cx="175" cy="295" r="16" fill="none" stroke="#ffffff" stroke-width="2" opacity="0.6">
+      <animate attributeName="opacity" values="0.6;1;0.6" dur="2s" repeatCount="indefinite"/>
+    </circle>
+    
+    <!-- Animation for draggable -->
+    <animateTransform 
+      attributeName="transform" 
+      type="translate" 
+      values="0,0; 0,-5; 0,0" 
+      dur="3s" 
+      begin="3s"
+      repeatCount="1"/>
+  </g>
+  
+  <!-- Widget 4 - Quick Bets -->
+  <g>
+    <rect x="310" y="250" width="170" height="90" rx="10" ry="10" fill="#24243a" stroke="#3a3a48" stroke-width="1"/>
+    <!-- Drag handle -->
+    <rect x="315" y="255" width="160" height="15" rx="5" ry="5" fill="#2a2a35"/>
+    <circle cx="325" cy="262" r="3" fill="#7c3aed"/>
+    <circle cx="335" cy="262" r="3" fill="#7c3aed"/>
+    <circle cx="345" cy="262" r="3" fill="#7c3aed"/>
+    <text x="390" y="267" font-family="Arial" font-size="10" fill="#ffffff" text-anchor="middle">QUICK BETS</text>
+    
+    <!-- Quick bet options -->
+    <rect x="320" y="280" width="70" height="25" rx="5" ry="5" fill="#1a1a24"/>
+    <text x="355" y="297" font-family="Arial" font-size="12" fill="#ffffff" text-anchor="middle">£5</text>
+    
+    <rect x="400" y="280" width="70" height="25" rx="5" ry="5" fill="#7c3aed"/>
+    <text x="435" y="297" font-family="Arial" font-size="12" fill="#ffffff" text-anchor="middle">£10</text>
+    
+    <rect x="320" y="315" width="70" height="25" rx="5" ry="5" fill="#1a1a24"/>
+    <text x="355" y="330" font-family="Arial" font-size="12" fill="#ffffff" text-anchor="middle">£25</text>
+    
+    <rect x="400" y="315" width="70" height="25" rx="5" ry="5" fill="#1a1a24"/>
+    <text x="435" y="330" font-family="Arial" font-size="12" fill="#ffffff" text-anchor="middle">£50</text>
+    
+    <!-- Animation for draggable -->
+    <animateTransform 
+      attributeName="transform" 
+      type="translate" 
+      values="0,0; 0,-5; 0,0" 
+      dur="3s" 
+      begin="4s"
+      repeatCount="1"/>
+  </g>
+  
+  <!-- Personalization decorative elements -->
+  <!-- Top-right customization button -->
+  <circle cx="520" cy="60" r="15" fill="#7c3aed">
+    <animate attributeName="fill" values="#7c3aed;#9061f9;#7c3aed" dur="3s" repeatCount="indefinite"/>
+  </circle>
+  <text x="520" y="65" font-family="Arial" font-size="16" fill="#ffffff" text-anchor="middle">⚙️</text>
+  
+  <!-- User profile highlight -->
+  <path d="M480,60 C500,40 540,40 560,60" stroke="#7c3aed" stroke-width="2" fill="none" stroke-dasharray="4,4">
+    <animate attributeName="stroke-dashoffset" values="8;0" dur="2s" repeatCount="indefinite"/>
+  </path>
+  
+  <!-- Bottom customization indicator -->
+  <text x="300" y="380" font-family="Arial" font-size="12" fill="#ffffff" text-anchor="middle">Drag and drop widgets to personalize your dashboard</text>
+  
+  <!-- Moving cursor indicator -->
+  <g>
+    <path d="M320,210 L330,220 L330,205 Z" fill="#ffffff">
+      <animateMotion
+        path="M0,0 C20,-20 40,20 60,0 C80,-30 100,30 0,0"
+        dur="6s"
+        repeatCount="indefinite"/>
+    </path>
+  </g>
+</svg>

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <!-- Background -->
+  <rect width="400" height="300" fill="#1F2937" rx="20" />
+  
+  <!-- Bet slip -->
+  <rect x="100" y="50" width="200" height="180" fill="#374151" rx="10" />
+  <rect x="120" y="70" width="160" height="20" fill="#9CA3AF" rx="4" />
+  <rect x="120" y="100" width="160" height="15" fill="#6B7280" rx="4" />
+  <rect x="120" y="125" width="100" height="15" fill="#6B7280" rx="4" />
+  <rect x="120" y="150" width="160" height="15" fill="#6B7280" rx="4" />
+  <rect x="120" y="175" width="70" height="35" fill="#3B82F6" rx="6" />
+  
+  <!-- Scanner effect -->
+  <rect x="90" y="140" width="220" height="4" fill="#10B981" rx="2">
+    <animate attributeName="y" values="60;220;60" dur="3s" repeatCount="indefinite" />
+  </rect>
+  
+  <!-- Camera/scanner icon -->
+  <circle cx="320" cy="80" r="30" fill="#3B82F6" />
+  <rect x="305" y="70" width="30" height="20" fill="#1F2937" rx="2" />
+  <circle cx="320" cy="80" r="8" fill="#6B7280" />
+  <circle cx="320" cy="80" r="4" fill="#111827" />
+</svg>

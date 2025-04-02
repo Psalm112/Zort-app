@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <!-- Background -->
+  <rect width="400" height="300" fill="#1F2937" rx="20" />
+  
+  <!-- Brain circuit board -->
+  <circle cx="200" cy="150" r="80" fill="#374151" />
+  <path d="M160,100 Q200,80 240,100" fill="none" stroke="#3B82F6" stroke-width="3" />
+  <path d="M140,120 Q200,100 260,120" fill="none" stroke="#6366F1" stroke-width="3" />
+  <path d="M130,150 Q200,130 270,150" fill="none" stroke="#8B5CF6" stroke-width="3" />
+  <path d="M140,180 Q200,200 260,180" fill="none" stroke="#EC4899" stroke-width="3" />
+  <path d="M160,200 Q200,220 240,200" fill="none" stroke="#10B981" stroke-width="3" />
+  
+  <!-- Circuit nodes -->
+  <circle cx="160" cy="100" r="5" fill="#3B82F6" />
+  <circle cx="240" cy="100" r="5" fill="#3B82F6" />
+  <circle cx="140" cy="120" r="5" fill="#6366F1" />
+  <circle cx="260" cy="120" r="5" fill="#6366F1" />
+  <circle cx="130" cy="150" r="5" fill="#8B5CF6" />
+  <circle cx="270" cy="150" r="5" fill="#8B5CF6" />
+  <circle cx="140" cy="180" r="5" fill="#EC4899" />
+  <circle cx="260" cy="180" r="5" fill="#EC4899" />
+  <circle cx="160" cy="200" r="5" fill="#10B981" />
+  <circle cx="240" cy="200" r="5" fill="#10B981" />
+  
+  <!-- Center node with pulse -->
+  <circle cx="200" cy="150" r="15" fill="#3B82F6">
+    <animate attributeName="r" values="15;20;15" dur="2s" repeatCount="indefinite" />
+    <animate attributeName="fill" values="#3B82F6;#8B5CF6;#3B82F6" dur="2s" repeatCount="indefinite" />
+  </circle>
+  
+  <!-- Data points flowing through circuits -->
+  <circle cx="160" cy="100" r="3" fill="#F3F4F6">
+    <animate attributeName="cx" values="160;200;240" dur="3s" repeatCount="indefinite" />
+  </circle>
+  <circle cx="140" cy="120" r="3" fill="#F3F4F6">
+    <animate attributeName="cx" values="140;200;260" dur="2.5s" repeatCount="indefinite" />
+  </circle>
+  <circle cx="270" cy="150" r="3" fill="#F3F4F6">
+    <animate attributeName="cx" values="270;200;130" dur="4s" repeatCount="indefinite" />
+  </circle>
+  <circle cx="260" cy="180" r="3" fill="#F3F4F6">
+    <animate attributeName="cx" values="260;200;140" dur="3.5s" repeatCount="indefinite" />
+  </circle>
+  
+  <!-- Prediction arrows -->
+  <path d="M200,70 L200,50 L215,60 Z" fill="#10B981" />
+  <path d="M200,230 L200,250 L185,240 Z" fill="#EC4899" />
+  <path d="M120,150 L100,150 L110,135 Z" fill="#3B82F6" />
+  <path d="M280,150 L300,150 L290,165 Z" fill="#8B5CF6" />
+</svg>

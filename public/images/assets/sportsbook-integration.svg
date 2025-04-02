@@ -1,0 +1,136 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400">
+  <!-- Dark background -->
+  <rect width="600" height="400" fill="#121218" rx="20" ry="20"/>
+  
+  <!-- Grid lines -->
+  <g stroke="#2a2a35" stroke-width="1" opacity="0.5">
+    <line x1="50" y1="50" x2="550" y2="50"/>
+    <line x1="50" y1="100" x2="550" y2="100"/>
+    <line x1="50" y1="150" x2="550" y2="150"/>
+    <line x1="50" y1="200" x2="550" y2="200"/>
+    <line x1="50" y1="250" x2="550" y2="250"/>
+    <line x1="50" y1="300" x2="550" y2="300"/>
+    <line x1="50" y1="350" x2="550" y2="350"/>
+  </g>
+  
+  <!-- Central platform (Zort) -->
+  <circle cx="300" cy="200" r="70" fill="#1e1e2d" stroke="#7c3aed" stroke-width="3"/>
+  <text x="300" y="205" font-family="Arial" font-size="20" fill="#ffffff" text-anchor="middle" font-weight="bold">ZORT</text>
+  
+  <!-- Connected sportsbooks -->
+  <!-- Sportsbook 1 -->
+  <g>
+    <circle cx="120" cy="130" r="40" fill="#1a1a24" stroke="#3b82f6" stroke-width="2"/>
+    <text x="120" y="135" font-family="Arial" font-size="10" fill="#ffffff" text-anchor="middle">SPORTSBOOK 1</text>
+    
+    <!-- Connection line with animated dots -->
+    <line x1="156" y1="147" x2="239" y2="180" stroke="#3b82f6" stroke-width="2" stroke-dasharray="5,5"/>
+    
+    <!-- Animated data dots -->
+    <circle cx="175" cy="156" r="4" fill="#3b82f6">
+      <animate attributeName="cx" values="156;239" dur="3s" repeatCount="indefinite"/>
+      <animate attributeName="cy" values="147;180" dur="3s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="1;0" dur="3s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="195" cy="165" r="4" fill="#3b82f6">
+      <animate attributeName="cx" values="156;239" dur="3s" begin="1s" repeatCount="indefinite"/>
+      <animate attributeName="cy" values="147;180" dur="3s" begin="1s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="1;0" dur="3s" begin="1s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+  
+  <!-- Sportsbook 2 -->
+  <g>
+    <circle cx="150" cy="280" r="40" fill="#1a1a24" stroke="#ec4899" stroke-width="2"/>
+    <text x="150" y="285" font-family="Arial" font-size="10" fill="#ffffff" text-anchor="middle">SPORTSBOOK 2</text>
+    
+    <!-- Connection line -->
+    <line x1="187" y1="265" x2="239" y2="230" stroke="#ec4899" stroke-width="2" stroke-dasharray="5,5"/>
+    
+    <!-- Animated data dots -->
+    <circle cx="200" cy="255" r="4" fill="#ec4899">
+      <animate attributeName="cx" values="187;239" dur="2.5s" repeatCount="indefinite"/>
+      <animate attributeName="cy" values="265;230" dur="2.5s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="1;0" dur="2.5s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="215" cy="245" r="4" fill="#ec4899">
+      <animate attributeName="cx" values="187;239" dur="2.5s" begin="0.8s" repeatCount="indefinite"/>
+      <animate attributeName="cy" values="265;230" dur="2.5s" begin="0.8s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="1;0" dur="2.5s" begin="0.8s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+  
+  <!-- Sportsbook 3 -->
+  <g>
+    <circle cx="480" cy="130" r="40" fill="#1a1a24" stroke="#10b981" stroke-width="2"/>
+    <text x="480" y="135" font-family="Arial" font-size="10" fill="#ffffff" text-anchor="middle">SPORTSBOOK 3</text>
+    
+    <!-- Connection line -->
+    <line x1="444" y1="147" x2="361" y2="180" stroke="#10b981" stroke-width="2" stroke-dasharray="5,5"/>
+    
+    <!-- Animated data dots -->
+    <circle cx="425" cy="156" r="4" fill="#10b981">
+      <animate attributeName="cx" values="444;361" dur="3.2s" repeatCount="indefinite"/>
+      <animate attributeName="cy" values="147;180" dur="3.2s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="1;0" dur="3.2s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="405" cy="165" r="4" fill="#10b981">
+      <animate attributeName="cx" values="444;361" dur="3.2s" begin="1.2s" repeatCount="indefinite"/>
+      <animate attributeName="cy" values="147;180" dur="3.2s" begin="1.2s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="1;0" dur="3.2s" begin="1.2s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+  
+  <!-- Sportsbook 4 -->
+  <g>
+    <circle cx="450" cy="280" r="40" fill="#1a1a24" stroke="#f59e0b" stroke-width="2"/>
+    <text x="450" y="285" font-family="Arial" font-size="10" fill="#ffffff" text-anchor="middle">SPORTSBOOK 4</text>
+    
+    <!-- Connection line -->
+    <line x1="413" y1="265" x2="361" y2="230" stroke="#f59e0b" stroke-width="2" stroke-dasharray="5,5"/>
+    
+    <!-- Animated data dots -->
+    <circle cx="400" cy="255" r="4" fill="#f59e0b">
+      <animate attributeName="cx" values="413;361" dur="2.8s" repeatCount="indefinite"/>
+      <animate attributeName="cy" values="265;230" dur="2.8s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="1;0" dur="2.8s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="385" cy="245" r="4" fill="#f59e0b">
+      <animate attributeName="cx" values="413;361" dur="2.8s" begin="1.4s" repeatCount="indefinite"/>
+      <animate attributeName="cy" values="265;230" dur="2.8s" begin="1.4s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="1;0" dur="2.8s" begin="1.4s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+  
+  <!-- Sync indicators -->
+  <g>
+    <circle cx="300" cy="120" r="15" fill="#1a1a24" stroke="#7c3aed" stroke-width="2"/>
+    <text x="300" y="124" font-family="Arial" font-size="14" fill="#7c3aed" text-anchor="middle" font-weight="bold">↻</text>
+    <animate attributeName="opacity" values="0.7;1;0.7" dur="2s" repeatCount="indefinite"/>
+  </g>
+  
+  <!-- Status indicators -->
+  <g>
+    <rect x="240" y="300" width="120" height="25" rx="12.5" ry="12.5" fill="#1a1a24" stroke="#7c3aed" stroke-width="1"/>
+    <text x="300" y="316" font-family="Arial" font-size="10" fill="#ffffff" text-anchor="middle">ALL SYSTEMS SYNCED</text>
+    <circle cx="265" cy="312.5" r="5" fill="#10b981">
+      <animate attributeName="fill" values="#10b981;#059669;#10b981" dur="3s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+  
+  <!-- Decorative elements -->
+  <circle cx="80" cy="50" r="25" fill="url(#gradSports1)" opacity="0.2"/>
+  <circle cx="520" cy="350" r="35" fill="url(#gradSports2)" opacity="0.3"/>
+  
+  <!-- Gradients -->
+  <defs>
+    <linearGradient id="gradSports1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7c3aed" stop-opacity="1" />
+      <stop offset="100%" stop-color="#3b82f6" stop-opacity="1" />
+    </linearGradient>
+    <linearGradient id="gradSports2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ec4899" stop-opacity="1" />
+      <stop offset="100%" stop-color="#8b5cf6" stop-opacity="1" />
+    </linearGradient>
+  </defs>
+</svg>

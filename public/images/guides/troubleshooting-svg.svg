@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 400 300">
+  <!-- Background -->
+  <rect width="400" height="300" fill="#1F2937" rx="20" />
+  
+  <!-- Screen with error -->
+  <rect x="100" y="60" width="200" height="150" rx="10" fill="#374151" />
+  <rect x="110" y="70" width="180" height="130" fill="#111827" rx="5" />
+  
+  <!-- Error message -->
+  <circle cx="200" cy="120" r="30" fill="#EF4444" opacity="0.2" />
+  <path d="M190,110 L210,130 M210,110 L190,130" stroke="#EF4444" stroke-width="4" />
+  
+  <!-- Tools -->
+  <rect x="160" y="160" width="80" height="20" rx="5" fill="#3B82F6" />
+  <rect x="170" y="165" width="60" height="10" rx="3" fill="#60A5FA" />
+  
+  <!-- Gears -->
+  <path id="gear1" d="M120,220 A20,20 0 0,1 100,240 A20,20 0 0,1 80,220 A20,20 0 0,1 100,200 A20,20 0 0,1 120,220 Z" fill="#6B7280" />
+  <circle cx="100" cy="220" r="8" fill="#4B5563" />
+  <path d="M100,205 L100,200 M100,240 L100,235 M85,220 L80,220 M120,220 L115,220 M88,208 L84,204 M116,236 L112,232 M88,232 L84,236 M116,204 L112,208" stroke="#9CA3AF" stroke-width="3" />
+  
+  <path id="gear2" d="M320,220 A20,20 0 0,1 300,240 A20,20 0 0,1 280,220 A20,20 0 0,1 300,200 A20,20 0 0,1 320,220 Z" fill="#6B7280" />
+  <circle cx="300" cy="220" r="8" fill="#4B5563" />
+  <path d="M300,205 L300,200 M300,240 L300,235 M285,220 L280,220 M320,220 L315,220 M288,208 L284,204 M316,236 L312,232 M288,232 L284,236 M316,204 L312,208" stroke="#9CA3AF" stroke-width="3" />
+  
+  <!-- Animation for gears -->
+  <animateTransform 
+    xlink:href="#gear1"
+    attributeName="transform"
+    type="rotate"
+    from="0 100 220"
+    to="360 100 220"
+    dur="10s"
+    repeatCount="indefinite" />
+    
+  <animateTransform 
+    xlink:href="#gear2"
+    attributeName="transform"
+    type="rotate"
+    from="0 300 220"
+    to="-360 300 220"
+    dur="10s"
+    repeatCount="indefinite" />
+  
+  <!-- Checkmark appearing after fixing -->
+  <g>
+    <path d="M180,230 L195,245 L220,215" stroke="#10B981" stroke-width="5" fill="none">
+      <animate attributeName="stroke-dasharray" values="0,130;130,0" dur="1.5s" begin="1s" fill="freeze" />
+    </path>
+  </g>
+</svg>

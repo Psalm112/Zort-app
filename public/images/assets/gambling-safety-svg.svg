@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400">
+  <!-- Dark background -->
+  <rect width="600" height="400" fill="#121218" rx="20" ry="20"/>
+  
+  <!-- Grid lines -->
+  <g stroke="#2a2a35" stroke-width="1" opacity="0.4">
+    <line x1="50" y1="50" x2="550" y2="50"/>
+    <line x1="50" y1="100" x2="550" y2="100"/>
+    <line x1="50" y1="150" x2="550" y2="150"/>
+    <line x1="50" y1="200" x2="550" y2="200"/>
+    <line x1="50" y1="250" x2="550" y2="250"/>
+    <line x1="50" y1="300" x2="550" y2="300"/>
+    <line x1="50" y1="350" x2="550" y2="350"/>
+  </g>
+  
+  <!-- Shield frame with animation -->
+  <path d="M300,50 L400,90 L400,180 C400,260 360,300 300,350 C240,300 200,260 200,180 L200,90 L300,50" fill="#1a1a24" stroke="#3a3a48" stroke-width="2">
+    <animate attributeName="stroke" values="#3a3a48;#7c3aed;#3a3a48" dur="3s" repeatCount="indefinite"/>
+  </path>
+  
+  <!-- Shield emblem -->
+  <circle cx="300" cy="170" r="70" fill="#12121a"/>
+  
+  <!-- Responsible gambling icon with animation -->
+  <g>
+    <!-- Hand -->
+    <path d="M270,170 L290,150 L310,170 L330,150 L330,210 C330,220 320,230 310,230 L290,230 C280,230 270,220 270,210 Z" fill="#7c3aed" stroke="#ffffff" stroke-width="2">
+      <animate attributeName="fill" values="#7c3aed;#9061f9;#7c3aed" dur="2s" repeatCount="indefinite"/>
+    </path>
+    
+    <!-- Coin -->
+    <circle cx="300" cy="170" r="20" fill="#f59e0b" stroke="#ffffff" stroke-width="2">
+      <animate attributeName="r" values="20;22;20" dur="1.5s" repeatCount="indefinite"/>
+    </circle>
+    <text x="300" y="175" font-family="Arial" font-size="16" fill="#ffffff" text-anchor="middle" font-weight="bold">£</text>
+  </g>
+  
+  <!-- Setting panel -->
+  <rect x="80" y="100" width="160" height="220" rx="15" ry="15" fill="#1a1a24" stroke="#3a3a48" stroke-width="2"/>
+  
+  <!-- Setting title -->
+  <rect x="90" y="110" width="140" height="30" rx="5" ry="5" fill="#24243a"/>
+  <text x="160" y="130" font-family="Arial" font-size="14" fill="#ffffff" text-anchor="middle" font-weight="bold">Deposit Limits</text>
+  
+  <!-- Settings -->
+  <g>
+    <!-- Daily limit -->
+    <rect x="90" y="150" width="140" height="40" rx="5" ry="5" fill="#24243a"/>
+    <text x="110" y="170" font-family="Arial" font-size="12" fill="#d1d5db">Daily Limit</text>
+    <rect x="90" y="175" width="140" height="5" rx="2.5" ry="2.5" fill="#4a4a58"/>
+    <circle cx="160" cy="177.5" r="7" fill="#7c3aed" stroke="#ffffff" stroke-width="1">
+      <animate attributeName="cx" values="160;165;160" dur="2s" repeatCount="indefinite"/>
+    </circle>
+    <text x="200" y="170" font-family="Arial" font-size="12" fill="#ffffff" text-anchor="end" font-weight="bold">£200</text>
+  </g>
+  
+  <g>
+    <!-- Weekly limit -->
+    <rect x="90" y="200" width="140" height="40" rx="5" ry="5" fill="#24243a"/>
+    <text x="110" y="220" font-family="Arial" font-size="12" fill="#d1d5db">Weekly Limit</text>
+    <rect x="90" y="225" width="140" height="5" rx="2.5" ry="2.5" fill="#4a4a58"/>
+    <circle cx="120" cy="227.5" r="7" fill="#7c3aed" stroke="#ffffff" stroke-width="1">
+      <animate attributeName="cx" values="120;125;120" dur="2s" repeatCount="indefinite"/>
+    </circle>
+    <text x="200" y="220" font-family="Arial" font-size="12" fill="#ffffff" text-anchor="end" font-weight="bold">£500</text>
+  </g>
+  
+  <g>
+    <!-- Monthly limit -->
+    <rect x="90" y="250" width="140" height="40" rx="5" ry="5" fill="#24243a"/>
+    <text x="110" y="270" font-family="Arial" font-size="12" fill="#d1d5db">Monthly Limit</text>
+    <rect x="90" y="275" width="140" height="5" rx="2.5" ry="2.5" fill="#4a4a58"/>
+    <circle cx="180" cy="277.5" r="7" fill="#7c3aed" stroke="#ffffff" stroke-width="1">
+      <animate attributeName="cx" values="180;185;180" dur="2s" repeatCount="indefinite"/>
+    </circle>
+    <text x="200" y="270" font-family="Arial" font-size="12" fill="#ffffff" text-anchor="end" font-weight="bold">£1200</text>
+  </g>
+  
+  <!-- Time tracker panel -->
+  <rect x="380" y="100" width="160" height="220" rx="15" ry="15" fill="#1a1a24" stroke="#3a3a48" stroke-width="2"/>
+  
+  <!-- Time tracker title -->
+  <rect x="390" y="110" width="140" height="30" rx="5" ry="5" fill="#24243a"/>
+  <text x="460" y="130" font-family="Arial" font-size="14" fill="#ffffff" text-anchor="middle" font-weight="bold">Time Spent</text>
+  
+  <!-- Clock display -->
+  <circle cx="460" cy="170" r="40" fill="#24243a" stroke="#7c3aed" stroke-width="3"/>
+  <line x1="460" y1="170" x2="460" y2="140" stroke="#ffffff" stroke-width="2">
+    <animateTransform
+      attributeName="transform"
+      type="rotate"
+      from="0 460 170"
+      to="360 460 170"
+      dur="12s"
+      repeatCount="indefinite"/>
+  </line>
+  <line x1="460" y1="170" x2="480" y2="170" stroke="#ffffff" stroke-width="2">
+    <animateTransform
+      attributeName="transform"
+      type="rotate"
+      from="0 460 170"
+      to="360 460 170"
+      dur="60s"
+      repeatCount="indefinite"/>
+  </line>
+  <circle cx="460" cy="170" r="5" fill="#ffffff"/>
+  
+  <!-- Timer display -->
+  <rect x="400" y="230" width="120" height="40" rx="8" ry="8" fill="#24243a"/>
+  <text x="460" y="255" font-family="Arial" font-size="18" fill="#ffffff" text-anchor="middle" font-weight="bold">01:45:22</text>
+  <text x="460" y="275" font-family="Arial" font-size="10" fill="#d1d5db" text-anchor="middle">Today's betting time</text>
+  
+  <!-- Progress circle -->
+  <circle cx="460" cy="170" r="45" fill="none" stroke="#3a3a48" stroke-width="5"/>
+  <path d="M460,125 A45,45 0 1,1 415,170" fill="none" stroke="#7c3aed" stroke-width="5" stroke-linecap="round">
+    <animate attributeName="d" values="M460,125 A45,45 0 0,1 415,170;M460,125 A45,45 0 0,1 460,215;M460,125 A45,45 0 1,1 415,170" dur="4s" repeatCount="indefinite"/>
+  </path>
+</svg>
