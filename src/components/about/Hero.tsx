@@ -1,25 +1,169 @@
 "use client";
-import { useRef, useState, Suspense, lazy, useEffect } from "react";
+import { useRef, useState, useEffect, memo } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Link from "next/link";
-import { Download, ChevronRight, Loader } from "lucide-react";
+import { Download, ChevronRight } from "lucide-react";
+import dynamic from "next/dynamic";
 
-const LazyVideo = lazy(() => import("@/components/general/LazyVideo"));
+const LazyVideo = dynamic(() => import("@/components/general/LazyVideo"), {
+  ssr: false,
+  loading: () => (
+    <div className="absolute inset-0 flex items-center justify-center bg-gray-900">
+      <div className="text-center">
+        <div className="inline-block w-12 h-12 rounded-full border-4 border-blue-500/20 border-t-blue-500 animate-spin mb-3"></div>
+        <p className="text-gray-400 text-sm">Loading video...</p>
+      </div>
+    </div>
+  ),
+});
+
+// animated background
+const AnimatedBackground = memo(() => (
+  <div className="absolute inset-0 overflow-hidden">
+    <motion.div
+      className="absolute -top-24 -right-24 w-96 h-96 bg-blue-500 rounded-full opacity-10 blur-3xl"
+      animate={{
+        scale: [1, 1.2, 1],
+        x: [0, 20, 0],
+        y: [0, -20, 0],
+      }}
+      transition={{
+        duration: 8,
+        repeat: Infinity,
+        repeatType: "reverse",
+      }}
+    />
+    <motion.div
+      className="absolute -bottom-24 -left-24 w-96 h-96 bg-purple-500 rounded-full opacity-10 blur-3xl"
+      animate={{
+        scale: [1, 1.3, 1],
+        x: [0, -20, 0],
+        y: [0, 20, 0],
+      }}
+      transition={{
+        duration: 10,
+        repeat: Infinity,
+        repeatType: "reverse",
+        delay: 1,
+      }}
+    />
+    <motion.div
+      className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-indigo-500 rounded-full opacity-5 blur-3xl"
+      animate={{ scale: [1, 1.5, 1] }}
+      transition={{
+        duration: 12,
+        repeat: Infinity,
+        repeatType: "reverse",
+        delay: 2,
+      }}
+    />
+  </div>
+));
+AnimatedBackground.displayName = "AnimatedBackground";
+
+// particles component
+const Particles = memo(() => {
+  type Particle = {
+    id: number;
+    left: string;
+    top: string;
+    duration: number;
+    delay: number;
+    distance: number;
+  };
+
+  const [particles, setParticles] = useState<Particle[]>([]);
+
+  useEffect(() => {
+    setParticles(
+      Array.from({ length: 15 }, (_, i) => ({
+        id: i,
+        left: `${Math.random() * 100}%`,
+        top: `${Math.random() * 100}%`,
+        duration: 3 + Math.random() * 5,
+        delay: Math.random() * 5,
+        distance: Math.random() * -100,
+      }))
+    );
+  }, []);
+
+  return (
+    <div className="absolute inset-0 pointer-events-none overflow-hidden">
+      {particles.map((particle) => (
+        <motion.div
+          key={particle.id}
+          className="absolute w-1 h-1 bg-blue-400 rounded-full opacity-20"
+          style={{
+            left: particle.left,
+            top: particle.top,
+          }}
+          animate={{
+            y: [0, particle.distance],
+            opacity: [0.2, 0],
+          }}
+          transition={{
+            duration: particle.duration,
+            repeat: Infinity,
+            delay: particle.delay,
+            ease: "easeOut",
+          }}
+        />
+      ))}
+    </div>
+  );
+});
+Particles.displayName = "Particles";
+
+// Feature card component
+const FeatureCard = memo(
+  ({
+    position,
+    icon,
+    title,
+    description,
+    delay,
+  }: {
+    position: string;
+    icon: React.ReactNode;
+    title: string;
+    description: string;
+    delay: number;
+  }) => (
+    <motion.div
+      className={`hidden md:block absolute ${position} p-2 bg-gray-900/70 backdrop-blur-sm rounded-lg shadow-lg border border-gray-800 z-20`}
+      initial={{ opacity: 0, x: position.includes("right") ? 20 : -20 }}
+      animate={{ opacity: 0.6, x: 0 }}
+      transition={{ delay, duration: 0.6 }}
+    >
+      <div className="flex items-center space-x-2">
+        <div className="w-6 h-6 rounded-full flex items-center justify-center">
+          {icon}
+        </div>
+        <div>
+          <h4 className="text-xs font-semibold text-white">{title}</h4>
+          <p className="text-xs text-gray-400">{description}</p>
+        </div>
+      </div>
+    </motion.div>
+  )
+);
+FeatureCard.displayName = "FeatureCard";
 
 const Hero = () => {
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
     setIsMounted(true);
   }, []);
 
-  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
-  const sectionRef = useRef<HTMLElement>(null);
-
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start start", "end start"],
   });
+
+  // Use transform with memoized values
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
   const y = useTransform(scrollYProgress, [0, 0.5], [0, 100]);
 
@@ -98,8 +242,8 @@ const Hero = () => {
           >
             <div className="relative w-full max-w-2xl pt-8 pb-8 px-6 md:px-12">
               <div className="relative w-full aspect-video overflow-hidden rounded-2xl">
-                {/* Placeholder gradient with animated loading */}
-                {!isVideoLoaded && (
+                {/* Placeholder gradient shown when video isn't loaded */}
+                {(!isVideoLoaded || !isMounted) && (
                   <div className="absolute inset-0 bg-gradient-to-br from-gray-900 to-gray-800 flex items-center justify-center">
                     <div className="text-center">
                       <div className="inline-block w-12 h-12 rounded-full border-4 border-blue-500/20 border-t-blue-500 animate-spin mb-3"></div>
@@ -108,135 +252,49 @@ const Hero = () => {
                   </div>
                 )}
 
-                {/* Suspense for lazy loading video */}
-                <Suspense
-                  fallback={
-                    <div className="absolute inset-0 flex items-center justify-center bg-gray-900">
-                      <div className="animate-pulse flex flex-col items-center">
-                        <Loader className="w-8 h-8 text-blue-500 animate-spin" />
-                        <span className="mt-2 text-sm text-gray-400">
-                          Loading
-                        </span>
-                      </div>
-                    </div>
-                  }
-                >
+                {isMounted && (
                   <LazyVideo
                     src="/videos/about.mp4"
                     onLoaded={() => setIsVideoLoaded(true)}
                   />
-                </Suspense>
+                )}
               </div>
 
-              {/* Floating Feature Cards */}
-              <motion.div
-                className="hidden md:block absolute bottom-10 left-10 p-2 bg-gray-900/70 backdrop-blur-sm rounded-lg shadow-lg border border-gray-800 z-20"
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 0.6, x: 0 }}
-                transition={{ delay: 1, duration: 0.6 }}
-              >
-                <div className="flex items-center space-x-2">
-                  <div className="w-6 h-6 rounded-full bg-blue-500 flex items-center justify-center">
-                    <span className="text-xs font-bold">AI</span>
-                  </div>
-                  <div>
-                    <h4 className="text-xs font-semibold text-white">
-                      Smart Analysis
-                    </h4>
-                    <p className="text-xs text-gray-400">
-                      Real-time predictions
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
-              <motion.div
-                className="hidden md:block absolute top-10 right-10 p-2 bg-gray-900/70 backdrop-blur-sm rounded-lg shadow-lg border border-gray-800 z-20"
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 0.6, x: 0 }}
-                transition={{ delay: 1.2, duration: 0.6 }}
-              >
-                <div className="flex items-center space-x-2">
-                  <div className="w-6 h-6 rounded-full bg-purple-500 flex items-center justify-center">
-                    <span className="text-xs font-bold">99%</span>
-                  </div>
-                  <div>
-                    <h4 className="text-xs font-semibold text-white">
-                      Accuracy Rate
-                    </h4>
-                    <p className="text-xs text-gray-400">Verified results</p>
-                  </div>
-                </div>
-              </motion.div>
+              {/* Feature Cards*/}
+              {isMounted && (
+                <>
+                  <FeatureCard
+                    position="bottom-10 left-10"
+                    icon={
+                      <span className="text-xs font-bold bg-blue-500 w-full h-full flex items-center justify-center rounded-full">
+                        AI
+                      </span>
+                    }
+                    title="Smart Analysis"
+                    description="Real-time predictions"
+                    delay={1}
+                  />
+                  <FeatureCard
+                    position="top-10 right-10"
+                    icon={
+                      <span className="text-xs font-bold bg-purple-500 w-full h-full flex items-center justify-center rounded-full">
+                        99%
+                      </span>
+                    }
+                    title="Accuracy Rate"
+                    description="Verified results"
+                    delay={1.2}
+                  />
+                </>
+              )}
             </div>
           </motion.div>
         </div>
       </div>
 
-      {/* Animated Background */}
-      <div className="absolute inset-0 overflow-hidden">
-        <motion.div
-          className="absolute -top-24 -right-24 w-96 h-96 bg-blue-500 rounded-full opacity-10 blur-3xl"
-          animate={{
-            scale: [1, 1.2, 1],
-            x: [0, 20, 0],
-            y: [0, -20, 0],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            repeatType: "reverse",
-          }}
-        />
-        <motion.div
-          className="absolute -bottom-24 -left-24 w-96 h-96 bg-purple-500 rounded-full opacity-10 blur-3xl"
-          animate={{
-            scale: [1, 1.3, 1],
-            x: [0, -20, 0],
-            y: [0, 20, 0],
-          }}
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-            repeatType: "reverse",
-            delay: 1,
-          }}
-        />
-        <motion.div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-indigo-500 rounded-full opacity-5 blur-3xl"
-          animate={{ scale: [1, 1.5, 1] }}
-          transition={{
-            duration: 12,
-            repeat: Infinity,
-            repeatType: "reverse",
-            delay: 2,
-          }}
-        />
-      </div>
-
-      {/* Decorative particles */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {isMounted &&
-          [...Array(15)].map((_, i) => (
-            <motion.div
-              key={i}
-              className="absolute w-1 h-1 bg-blue-400 rounded-full opacity-20"
-              style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-              }}
-              animate={{
-                y: [0, Math.random() * -100],
-                opacity: [0.2, 0],
-              }}
-              transition={{
-                duration: 3 + Math.random() * 5,
-                repeat: Infinity,
-                delay: Math.random() * 5,
-                ease: "easeOut",
-              }}
-            />
-          ))}
-      </div>
+      {/* background components */}
+      <AnimatedBackground />
+      <Particles />
     </section>
   );
 };

@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useCallback, memo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Download,
@@ -10,65 +10,113 @@ import {
   BarChart2,
   Smartphone,
 } from "lucide-react";
-import Statistics from "../../../public/images/assets/statistics.png";
-import BetTracker from "../../../public/images/assets/bet-tracker.png";
-import Balance from "../../../public/images/assets/balance.png";
-import Trophy from "../../../public/images/assets/trophy.png";
+
+const IMAGES = {
+  Statistics: "/images/assets/statistics.png",
+  BetTracker: "/images/assets/bet-tracker.png",
+  Balance: "/images/assets/balance.png",
+  Trophy: "/images/assets/trophy.png",
+};
+
+interface ScreenData {
+  image: string;
+  title: string;
+  description: string;
+}
+
+const FeatureIndicator = memo(
+  ({ icon, text }: { icon: React.ReactNode; text: string }) => (
+    <motion.div className="flex flex-col items-center" whileHover={{ y: -5 }}>
+      <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-blue-500/20 flex items-center justify-center mb-1 md:mb-2">
+        {icon}
+      </div>
+      <p className="text-xs md:text-sm text-gray-400">{text}</p>
+    </motion.div>
+  )
+);
+FeatureIndicator.displayName = "FeatureIndicator";
+
+const ScreenIndicator = memo(
+  ({
+    index,
+    isActive,
+    onClick,
+  }: {
+    index: number;
+    isActive: boolean;
+    onClick: () => void;
+  }) => (
+    <motion.div
+      className="h-1.5 rounded-full bg-gray-600 cursor-pointer"
+      onClick={onClick}
+      animate={{
+        backgroundColor: isActive ? "#3b82f6" : "#4b5563",
+        scale: isActive ? 1.2 : 1,
+        width: isActive ? "16px" : "6px",
+      }}
+      transition={{ duration: 0.3 }}
+    />
+  )
+);
+ScreenIndicator.displayName = "ScreenIndicator";
+
+const PARTICLE_POSITIONS = [
+  { top: "24%", left: "30%" },
+  { top: "43%", left: "30%" },
+  { top: "38%", left: "75%" },
+  { top: "57%", left: "83%" },
+];
 
 const Hero = () => {
   const [currentScreen, setCurrentScreen] = useState(0);
   const [isMounted, setIsMounted] = useState(false);
-  const particlesRef = useRef(null);
 
-  const screens = [
+  const screens: ScreenData[] = [
     {
-      image: BetTracker,
+      image: IMAGES.BetTracker,
       title: "Track Your Bets",
       description: "Keep all your wagers in one place",
     },
     {
-      image: Statistics,
+      image: IMAGES.Statistics,
       title: "Advanced Analytics",
       description: "Get detailed insights on your performance",
     },
     {
-      image: Balance,
+      image: IMAGES.Balance,
       title: "Manage Balance",
       description: "Track your finances across platforms",
     },
   ];
 
+  //screen rotation
+  const rotateScreen = useCallback(() => {
+    setCurrentScreen((prev) => (prev + 1) % screens.length);
+  }, [screens.length]);
+
   useEffect(() => {
     setIsMounted(true);
 
     // Auto-rotate screens every 5 seconds
-    const interval = setInterval(() => {
-      setCurrentScreen((prev) => (prev + 1) % screens.length);
-    }, 5000);
+    const interval = setInterval(rotateScreen, 5000);
 
     return () => clearInterval(interval);
+  }, [rotateScreen]);
+
+  // screen indicator click handler
+  const handleScreenIndicatorClick = useCallback((index: number) => {
+    setCurrentScreen(index);
   }, []);
 
-  // Generate deterministic particle positions instead of random
-  const getParticlePosition = (index: number) => {
-    const positions = [
-      { top: "24%", left: "30%" },
-      { top: "43%", left: "30%" },
-      { top: "38%", left: "75%" },
-      { top: "57%", left: "83%" },
-    ];
-    return positions[index % positions.length];
-  };
-
   if (!isMounted) {
-    return <div className="h-screen"></div>;
+    return <div className="h-[100vh]"></div>;
   }
 
   return (
-    <section className="relative py-24 sm:py-28 md:py-32 lg:py-36 px-4 sm:px-6 lg:px-8 overflow-hidden">
-      {/* Max height constraint for large screens */}
+    <section className="relative py-20 sm:py-22 md:py-28 lg:py-32 px-4 sm:px-6 lg:px-8 overflow-hidden">
       <div className="container mx-auto max-w-7xl h-full max-h-screen flex items-center justify-center">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 lg:gap-12 items-center py-6 sm:py-8 md:py-10 lg:py-12">
+          {/* Text content */}
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
@@ -129,31 +177,20 @@ const Hero = () => {
                 { icon: <BarChart2 size={18} />, text: "Live Stats" },
                 { icon: <TrophyIcon size={18} />, text: "Win More" },
               ].map((item, i) => (
-                <motion.div
-                  key={i}
-                  className="flex flex-col items-center"
-                  whileHover={{ y: -5 }}
-                >
-                  <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-blue-500/20 flex items-center justify-center mb-1 md:mb-2">
-                    {item.icon}
-                  </div>
-                  <p className="text-xs md:text-sm text-gray-400">
-                    {item.text}
-                  </p>
-                </motion.div>
+                <FeatureIndicator key={i} icon={item.icon} text={item.text} />
               ))}
             </motion.div>
           </motion.div>
 
+          {/* Phone mockup section */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.3 }}
             className="relative z-10 flex justify-center lg:justify-end"
           >
-            {/* Phone Mockup - responsive sizing */}
+            {/* Phone Mockup */}
             <div className="relative w-56 sm:w-64 md:w-72 lg:w-80 xl:w-96 h-full">
-              {/* Floating animation for phone */}
               <motion.div
                 className="relative"
                 initial={{ y: 0 }}
@@ -178,7 +215,7 @@ const Hero = () => {
                   className="relative w-full aspect-[9/19] rounded-[2rem] sm:rounded-[2.5rem] overflow-hidden bg-black shadow-2xl"
                   style={{ boxShadow: "0 0 40px rgba(101,101,255,0.3)" }}
                 >
-                  {/* Screen Content with Animation */}
+                  {/* Screen Content */}
                   <div className="absolute inset-0 overflow-hidden rounded-[1.8rem] sm:rounded-[2.3rem]">
                     <AnimatePresence mode="wait">
                       <motion.div
@@ -200,6 +237,7 @@ const Hero = () => {
                           fill
                           className="object-cover"
                           priority={currentScreen === 0}
+                          sizes="(max-width: 640px) 14rem, (max-width: 768px) 16rem, (max-width: 1024px) 20rem, 22rem"
                         />
 
                         {/* Screen info overlay */}
@@ -241,9 +279,7 @@ const Hero = () => {
                   <div className="flex flex-row items-center mx-auto gap-2 md:gap-4">
                     {/* Alternative Stats Element for Small Screens Only */}
                     <motion.div
-                      className="sm:hidden
-                           bg-gray-900/90 backdrop-blur-sm p-1.5 rounded-lg border border-gray-800
-                           w-auto"
+                      className="sm:hidden bg-gray-900/90 backdrop-blur-sm p-1.5 rounded-lg border border-gray-800 w-auto"
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 1, delay: 1.2 }}
@@ -276,9 +312,7 @@ const Hero = () => {
                     </motion.div>
                     {/* Alternative Notification for Small Screens Only */}
                     <motion.div
-                      className="sm:hidden
-                           bg-gray-900/90 backdrop-blur-sm p-1.5 rounded-lg border border-gray-800
-                           flex items-center space-x-1"
+                      className="sm:hidden bg-gray-900/90 backdrop-blur-sm p-1.5 rounded-lg border border-gray-800 flex items-center space-x-1"
                       initial={{ opacity: 0, scale: 0 }}
                       animate={{ opacity: 1, scale: 1 }}
                       transition={{ duration: 0.5, delay: 1.4 }}
@@ -301,17 +335,11 @@ const Hero = () => {
                   <div className="flex justify-between items-center px-4 mt-2">
                     <div className="flex space-x-1 md:space-x-2 mx-auto">
                       {screens.map((_, index) => (
-                        <motion.div
+                        <ScreenIndicator
                           key={index}
-                          className="h-1.5 rounded-full bg-gray-600 cursor-pointer"
-                          onClick={() => setCurrentScreen(index)}
-                          animate={{
-                            backgroundColor:
-                              currentScreen === index ? "#3b82f6" : "#4b5563",
-                            scale: currentScreen === index ? 1.2 : 1,
-                            width: currentScreen === index ? "16px" : "6px",
-                          }}
-                          transition={{ duration: 0.3 }}
+                          index={index}
+                          isActive={currentScreen === index}
+                          onClick={() => handleScreenIndicatorClick(index)}
                         />
                       ))}
                     </div>
@@ -319,7 +347,7 @@ const Hero = () => {
                 </div>
               </motion.div>
 
-              {/* Trophy - adjusted for better responsiveness */}
+              {/* Trophy */}
               <motion.div
                 className="absolute -right-2 sm:-right-4 lg:-right-8 xl:-right-10 
                           -top-4 sm:-top-6 md:-top-8 lg:-top-12 xl:-top-14 
@@ -341,7 +369,7 @@ const Hero = () => {
                     className="relative z-10"
                   >
                     <Image
-                      src={Trophy}
+                      src={IMAGES.Trophy}
                       alt="Trophy"
                       width={120}
                       height={120}
@@ -384,16 +412,13 @@ const Hero = () => {
                   />
                 </div>
 
-                {/* Animated particles around trophy */}
-                <div
-                  className="absolute inset-0 overflow-visible"
-                  ref={particlesRef}
-                >
+                {/* particles around trophy  */}
+                <div className="absolute inset-0 overflow-visible">
                   {[...Array(4)].map((_, i) => (
                     <motion.div
                       key={i}
                       className="absolute w-1 h-1 bg-gradient-to-r from-blue-300 to-blue-500 rounded-full"
-                      style={getParticlePosition(i)}
+                      style={PARTICLE_POSITIONS[i]}
                       animate={{
                         x: [0, i % 2 === 0 ? 10 : -10, 0],
                         y: [0, i % 3 === 0 ? -10 : 10, 0],
@@ -437,7 +462,7 @@ const Hero = () => {
                 </motion.div>
               </motion.div>
 
-              {/* Floating Stats - adjusted positioning */}
+              {/* Floating Stats */}
               <motion.div
                 className="absolute hidden sm:block
                            sm:-left-4 md:-left-6 lg:-left-10 xl:-left-16 
@@ -473,7 +498,7 @@ const Hero = () => {
                 </div>
               </motion.div>
 
-              {/* Floating Notification Element - adjusted positioning */}
+              {/* Floating Notification Element */}
               <motion.div
                 className="absolute hidden sm:block
                            sm:-right-2 md:-right-4 lg:-right-6 xl:-right-10
@@ -498,31 +523,19 @@ const Hero = () => {
                 </p>
               </motion.div>
 
-              {/* Glowing Effect Behind Phone */}
-              <motion.div
-                className="absolute -z-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4/5 h-4/5 opacity-30 blur-3xl rounded-full"
-                animate={{
-                  background: [
-                    "radial-gradient(circle, rgba(59,130,246,0.4) 0%, rgba(124,58,237,0.2) 70%)",
-                    "radial-gradient(circle, rgba(124,58,237,0.4) 0%, rgba(59,130,246,0.2) 70%)",
-                    "radial-gradient(circle, rgba(59,130,246,0.4) 0%, rgba(124,58,237,0.2) 70%)",
-                  ],
-                }}
-                transition={{ duration: 8, repeat: Infinity }}
-              ></motion.div>
+              {/* glowing effect behind phone*/}
+              <div className="absolute -z-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4/5 h-4/5 opacity-30 blur-3xl rounded-full bg-gradient-radial from-blue-400/40 to-purple-500/20"></div>
             </div>
           </motion.div>
         </div>
       </div>
 
-      {/* Background Elements */}
-      <div className="absolute inset-0 overflow-hidden">
+      {/* Background Elements  */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
           className="absolute -top-24 -right-24 w-64 sm:w-72 md:w-80 lg:w-96 h-64 sm:h-72 md:h-80 lg:h-96 bg-blue-500 rounded-full opacity-10 blur-3xl"
           animate={{
             scale: [1, 1.2, 1],
-            x: [0, 20, 0],
-            y: [0, -20, 0],
           }}
           transition={{
             duration: 8,
@@ -534,8 +547,6 @@ const Hero = () => {
           className="absolute -bottom-24 -left-24 w-64 sm:w-72 md:w-80 lg:w-96 h-64 sm:h-72 md:h-80 lg:h-96 bg-purple-500 rounded-full opacity-10 blur-3xl"
           animate={{
             scale: [1, 1.3, 1],
-            x: [0, -20, 0],
-            y: [0, 20, 0],
           }}
           transition={{
             duration: 10,
@@ -544,20 +555,7 @@ const Hero = () => {
             delay: 1,
           }}
         ></motion.div>
-
-        <motion.div
-          className="absolute top-1/4 left-1/3 w-40 sm:w-48 md:w-56 lg:w-64 h-40 sm:h-48 md:h-56 lg:h-64 bg-indigo-500 rounded-full opacity-5 blur-3xl"
-          animate={{
-            scale: [1, 1.2, 1],
-            rotate: [0, 10, 0],
-          }}
-          transition={{
-            duration: 12,
-            repeat: Infinity,
-            repeatType: "reverse",
-            delay: 2,
-          }}
-        ></motion.div>
+        <div className="absolute top-1/4 left-1/3 w-40 sm:w-48 md:w-56 lg:w-64 h-40 sm:h-48 md:h-56 lg:h-64 bg-indigo-500 rounded-full opacity-5 blur-3xl"></div>
       </div>
     </section>
   );

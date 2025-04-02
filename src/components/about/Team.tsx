@@ -1,61 +1,86 @@
 "use client";
-import { useRef, Suspense, lazy } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion, useInView } from "framer-motion";
 import { BsGithub, BsLinkedin, BsTwitterX } from "react-icons/bs";
 import { ChevronRight } from "lucide-react";
+import Image from "next/image";
+import { TeamMember } from "@/types/about";
 
-const LazyTeamMember = lazy(() => import("./LazyTeamMember"));
+const TeamMemberImage = ({
+  src,
+  alt,
+  priority = false,
+}: {
+  src: string;
+  alt: string;
+  priority?: boolean;
+}) => (
+  <div className="absolute inset-0">
+    <Image
+      src={src}
+      alt={alt}
+      fill
+      priority={priority}
+      className="object-cover object-top transition-all duration-700 group-hover:scale-110"
+      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+      loading={priority ? "eager" : "lazy"}
+    />
+  </div>
+);
 
 const TheTeam = () => {
-  const ref = useRef(null);
+  const ref = useRef<HTMLElement>(null);
   const isInView = useInView(ref, { once: false, amount: 0.2 });
+  const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
 
-  const team = [
-    {
-      name: "Alex Morgan",
-      role: "Founder & CEO",
-      bio: "Former sports analyst with a passion for data science and betting optimization.",
-      imagePath: "/images/team/ceo.jpg",
-      social: {
-        linkedin: "#",
-        twitter: "#",
-        github: "#",
+  useEffect(() => {
+    setTeamMembers([
+      {
+        name: "Alex Morgan",
+        role: "Founder & CEO",
+        bio: "Former sports analyst with a passion for data science and betting optimization.",
+        imagePath: "/images/team/ceo.jpg",
+        social: {
+          linkedin: "#",
+          twitter: "#",
+          github: "#",
+        },
       },
-    },
-    {
-      name: "Sarah Chen",
-      role: "CTO",
-      bio: "AI expert with a background in developing machine learning solutions for financial analytics.",
-      imagePath: "/images/team/cto.jpg",
-      social: {
-        linkedin: "#",
-        twitter: "#",
-        github: "#",
+      {
+        name: "Sarah Chen",
+        role: "CTO",
+        bio: "AI expert with a background in developing machine learning solutions for financial analytics.",
+        imagePath: "/images/team/cto.jpg",
+        social: {
+          linkedin: "#",
+          twitter: "#",
+          github: "#",
+        },
       },
-    },
-    {
-      name: "James Wilson",
-      role: "Head of Product",
-      bio: "UX specialist focused on creating intuitive interfaces for complex data visualization.",
-      imagePath: "/images/team/headofproduct.jpg",
-      social: {
-        linkedin: "#",
-        twitter: "#",
-        github: "#",
+      {
+        name: "James Wilson",
+        role: "Head of Product",
+        bio: "UX specialist focused on creating intuitive interfaces for complex data visualization.",
+        imagePath: "/images/team/headofproduct.jpg",
+        social: {
+          linkedin: "#",
+          twitter: "#",
+          github: "#",
+        },
       },
-    },
-    {
-      name: "Maya Patel",
-      role: "Lead Data Scientist",
-      bio: "Statistics PhD with expertise in predictive modeling and betting trend analysis.",
-      imagePath: "/images/team/datascientist.jpg",
-      social: {
-        linkedin: "#",
-        twitter: "#",
-        github: "#",
+      {
+        name: "Maya Patel",
+        role: "Lead Data Scientist",
+        bio: "Statistics PhD with expertise in predictive modeling and betting trend analysis.",
+        imagePath: "/images/team/datascientist.jpg",
+        social: {
+          linkedin: "#",
+          twitter: "#",
+          github: "#",
+        },
       },
-    },
-  ];
+    ]);
+  }, []);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -104,27 +129,21 @@ const TheTeam = () => {
           animate={isInView ? "visible" : "hidden"}
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"
         >
-          {team.map((member, index) => (
+          {teamMembers.map((member, index) => (
             <motion.div
               key={index}
               variants={itemVariants}
               className="bg-gray-800/40 h-full backdrop-blur-sm rounded-2xl border border-gray-700 overflow-hidden hover:border-blue-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10 group"
             >
               <div className="h-48 max-md:h-82 relative overflow-hidden">
-                {/* Simple div placeholder while image loads */}
                 <div className="absolute inset-0 bg-gradient-to-b from-gray-700 to-gray-800 flex items-center justify-center">
                   <div className="w-12 h-12 rounded-full border-2 border-t-transparent border-blue-400 animate-spin"></div>
                 </div>
-
-                {/* Suspense and lazy loaded image */}
-                <Suspense fallback={null}>
-                  <LazyTeamMember
-                    src={member.imagePath}
-                    alt={member.name}
-                    priority={index < 2}
-                  />
-                </Suspense>
-
+                <TeamMemberImage
+                  src={member.imagePath}
+                  alt={member.name}
+                  priority={index < 2}
+                />
                 <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent opacity-60" />
               </div>
               <div className="p-6">
@@ -135,18 +154,21 @@ const TheTeam = () => {
                   <a
                     href={member.social.linkedin}
                     className="text-gray-400 hover:text-blue-400 transition-colors"
+                    aria-label={`${member.name}'s LinkedIn profile`}
                   >
                     <BsLinkedin size={18} />
                   </a>
                   <a
                     href={member.social.twitter}
                     className="text-gray-400 hover:text-blue-400 transition-colors"
+                    aria-label={`${member.name}'s Twitter profile`}
                   >
                     <BsTwitterX size={18} />
                   </a>
                   <a
                     href={member.social.github}
                     className="text-gray-400 hover:text-blue-400 transition-colors"
+                    aria-label={`${member.name}'s GitHub profile`}
                   >
                     <BsGithub size={18} />
                   </a>
@@ -176,19 +198,24 @@ const TheTeam = () => {
         </motion.div>
       </div>
 
-      {/* Background elements */}
-      <motion.div
+      <div
         className="absolute -top-48 -left-48 w-96 h-96 bg-blue-500 rounded-full opacity-10 blur-3xl"
-        animate={{
-          scale: [1, 1.3, 1],
-          x: [0, 20, 0],
-        }}
-        transition={{
-          duration: 15,
-          repeat: Infinity,
-          ease: "easeInOut",
+        style={{
+          animation: "pulseEffect 15s infinite ease-in-out",
         }}
       />
+
+      <style jsx>{`
+        @keyframes pulseEffect {
+          0%,
+          100% {
+            transform: scale(1) translateX(0);
+          }
+          50% {
+            transform: scale(1.3) translateX(20px);
+          }
+        }
+      `}</style>
     </section>
   );
 };
