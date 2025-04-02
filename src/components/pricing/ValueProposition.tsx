@@ -26,7 +26,7 @@ const partners = [
   { name: "", logo: FjLabs },
 ];
 
-// Sample data for the charts
+// data for the charts
 const analyticsData = [
   { name: "Jan", profit: 4000, bets: 24, winRate: 58 },
   { name: "Feb", profit: 3000, bets: 28, winRate: 52 },

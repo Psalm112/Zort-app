@@ -96,7 +96,6 @@ const Features = () => {
           })}
         </motion.div>
 
-        {/* View All Features Button */}
         <motion.div
           className="flex justify-center"
           initial={{ opacity: 0, y: 20 }}

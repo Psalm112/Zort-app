@@ -28,7 +28,6 @@ const FAQ = ({
       </div>
 
       <div className="container mx-auto max-w-4xl relative z-10">
-        {/* Header */}
         <div className="text-center mb-12" data-aos="fade-up">
           <div className="flex justify-center mb-4">
             <HelpCircle className="text-blue-400 w-12 h-12" />

@@ -139,7 +139,7 @@ const FAQ: React.FC = () => {
   ];
 
   return (
-    <section className="py-16 px-4 sm:px-6 lg:px-8 relative">
+    <section className="py-16 px-4 sm:px-6 lg:px-8 relative" id="faqs">
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

@@ -8,7 +8,7 @@ const Hero: React.FC = () => {
 
   return (
     <section className="relative min-h-[45vh] flex items-center py-20 px-4 sm:px-6 lg:px-8 overflow-hidden ">
-      {/* Decorative elements */}
+      {/* Background elements */}
       <div className="absolute top-20 left-10 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl"></div>
       <div className="absolute bottom-0 right-10 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl"></div>
 

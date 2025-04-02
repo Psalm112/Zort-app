@@ -43,7 +43,7 @@ const Hero: React.FC = () => {
         </div>
       </div>
 
-      {/* Hero Background Elements */}
+      {/* Background Elements */}
       <div className="absolute right-0 bottom-0 opacity-40 transform translate-x-1/4">
         <div className="w-64 h-64 bg-gradient-to-r from-purple-600 to-blue-500 rounded-full filter blur-3xl"></div>
       </div>

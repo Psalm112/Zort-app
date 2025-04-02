@@ -70,7 +70,7 @@ const Hero: React.FC = () => {
         </div>
       </div>
 
-      {/* Hero Background Elements */}
+      {/* Background Elements */}
       <div
         className="absolute right-0 bottom-0 opacity-40 transform translate-x-1/4"
         data-aos="fade-left"

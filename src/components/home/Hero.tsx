@@ -38,7 +38,6 @@ const Hero = () => {
     },
   ];
 
-  // Only run animations and timers after component is mounted on client
   useEffect(() => {
     setIsMounted(true);
 
@@ -61,9 +60,8 @@ const Hero = () => {
     return positions[index % positions.length];
   };
 
-  // Don't render content until after mount on client
   if (!isMounted) {
-    return <div className="min-h-screen"></div>; // Return placeholder during SSR
+    return <div className="min-h-screen"></div>;
   }
 
   return (
@@ -320,7 +318,7 @@ const Hero = () => {
                 </div>
               </motion.div>
 
-              {/* Trophy Element */}
+              {/* Trophy */}
               <motion.div
                 className="absolute -right-4 sm:-right-6 lg:-right-10 -top-6 sm:-top-8 lg:-top-14 w-24 sm:w-28 lg:w-36 h-24 sm:h-28 lg:h-36"
                 initial={{ opacity: 0, x: 20, y: 20, rotate: -15 }}
@@ -382,7 +380,7 @@ const Hero = () => {
                   />
                 </div>
 
-                {/* Animated particles around trophy - with DETERMINISTIC positions */}
+                {/* Animated particles around trophy */}
                 <div
                   className="absolute inset-0 overflow-visible"
                   ref={particlesRef}
@@ -435,7 +433,7 @@ const Hero = () => {
                 </motion.div>
               </motion.div>
 
-              {/* Floating Stats Element */}
+              {/* Floating Stats */}
               <motion.div
                 className="absolute hidden sm:block lg:block 
                            sm:-left-6 md:-left-8 lg:-left-16 
@@ -513,7 +511,7 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* Animated Background Elements */}
+      {/* Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
         <motion.div
           className="absolute -top-24 -right-24 w-72 sm:w-96 h-72 sm:h-96 bg-blue-500 rounded-full opacity-10 blur-3xl"
@@ -543,7 +541,6 @@ const Hero = () => {
           }}
         ></motion.div>
 
-        {/* Additional subtle background elements */}
         <motion.div
           className="absolute top-1/4 left-1/3 w-48 sm:w-64 h-48 sm:h-64 bg-indigo-500 rounded-full opacity-5 blur-3xl"
           animate={{

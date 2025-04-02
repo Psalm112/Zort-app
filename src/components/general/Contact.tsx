@@ -14,15 +14,12 @@ const Contact = () => {
     e.preventDefault();
     setFormStatus("sending");
 
-    // Simulate form submission
     setTimeout(() => {
       setFormStatus("success");
 
-      // Reset form
       const form = e.target as HTMLFormElement;
       form.reset();
 
-      // Reset status after 3 seconds
       setTimeout(() => setFormStatus("idle"), 3000);
     }, 1500);
   };
@@ -50,6 +47,7 @@ const Contact = () => {
 
   return (
     <section
+      id="contact"
       ref={ref}
       className="relative py-20 px-4 sm:px-6 lg:px-8 overflow-hidden bg-gray-900/30"
     >

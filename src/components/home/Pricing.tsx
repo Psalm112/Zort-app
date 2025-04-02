@@ -31,7 +31,6 @@ const Pricing = () => {
       <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500 rounded-full filter blur-[150px] opacity-10"></div>
 
       <div className="container mx-auto px-4 max-w-6xl">
-        {/* Section header */}
         <div className="text-center mb-16" data-aos="fade-up">
           <h2 className="text-4xl font-bold text-white mb-4">
             Unlock Powerful Insights,{" "}
