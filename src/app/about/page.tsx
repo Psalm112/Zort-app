@@ -26,7 +26,7 @@ export default function About() {
     // AOS setup
     (async () => {
       const AOS = (await import("aos")).default;
-      // @ts-ignore
+
       await import("aos/dist/aos.css");
 
       AOS.init({

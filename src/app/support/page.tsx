@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import TroubleshootingGuides from "@/components/support/TroubleshootingGuides";
 import SupportCta from "@/components/support/SupportCta";
 import FAQ from "@/components/support/AllFAQ";
@@ -9,15 +9,14 @@ import Contact from "@/components/general/Contact";
 import Community from "@/components/general/Community";
 
 export default function SupportPage() {
-  const [isClient, setIsClient] = useState(false);
+  //   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    setIsClient(true);
+    // setIsClient(true);
 
     // AOS setup
     (async () => {
       const AOS = (await import("aos")).default;
-      // @ts-ignore
       await import("aos/dist/aos.css");
 
       AOS.init({

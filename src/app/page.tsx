@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
-import { Suspense } from "react";
 import Hero from "@/components/home/Hero";
 import Features from "@/components/home/Features";
 import Workflow from "@/components/home/Workflow";
@@ -76,7 +75,7 @@ export default function Home() {
       try {
         const AOSModule = await import("aos");
         const AOS = AOSModule.default;
-        require("aos/dist/aos.css");
+        await import("aos/dist/aos.css");
 
         AOS.init({
           duration: 800,

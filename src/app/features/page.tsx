@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import CoreFeatures from "@/components/features/CoreFeatures";
 import DetailedFeatures from "@/components/features/DetailedFeatures";
 import FAQ from "@/components/general/FAQ";
@@ -47,15 +47,14 @@ const faqs: FaqItemProps[] = [
 ];
 
 export default function FeaturesPage() {
-  const [isClient, setIsClient] = useState(false);
+  // const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    setIsClient(true);
+    // setIsClient(true);
 
     // AOS setup
     (async () => {
       const AOS = (await import("aos")).default;
-      // @ts-ignore
       await import("aos/dist/aos.css");
 
       AOS.init({

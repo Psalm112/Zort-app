@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Hero from "@/components/pricing/Hero";
 import PricingPlans from "@/components/pricing/PricingPlans";
 import ValueProposition from "@/components/pricing/ValueProposition";
@@ -42,15 +42,14 @@ const faqs: FaqItemProps[] = [
 ];
 
 export default function PricingPage() {
-  const [isClient, setIsClient] = useState(false);
+  // const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    setIsClient(true);
+    // setIsClient(true);
 
     // AOS setup
     (async () => {
       const AOS = (await import("aos")).default;
-      // @ts-ignore
       await import("aos/dist/aos.css");
 
       AOS.init({
