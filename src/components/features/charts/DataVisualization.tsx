@@ -23,7 +23,7 @@ import {
 const DataVisualization = () => {
   const [activeChart, setActiveChart] = useState("performance");
 
-  // Sample data for visualizations
+  // data for visualizations
   const performanceData = [
     { date: "Jan 1", profit: 150, bets: 15 },
     { date: "Jan 8", profit: 180, bets: 18 },

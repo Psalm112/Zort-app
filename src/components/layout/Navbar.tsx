@@ -27,7 +27,7 @@ const Navbar = () => {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  // Add scroll event listener to change navbar style on scroll
+  // change navbar style on scroll
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 50) {
@@ -95,7 +95,7 @@ const Navbar = () => {
     exit: { opacity: 0, y: -10 },
   };
 
-  // Feature icons mapping for visual enhancement
+  // Feature icons mapping
   const featureIcons: Record<string, React.ReactNode> = {
     "AI Bet Slip Scanner": <Scan size={18} className="text-blue-400" />,
     "Intelligent Analytics": <Brain size={18} className="text-purple-400" />,
@@ -125,83 +125,83 @@ const Navbar = () => {
     ),
   };
 
-  // List of navigation items with dropdown options where applicable
+  // List of navigation items with dropdown options
   const navItems = [
     {
       name: "Features",
-      path: "features",
+      path: "/features",
       hasDropdown: true,
       dropdownItems: [
         {
           name: "AI Bet Slip Scanner",
           // path: "features#ai-bet-slip-scanner"
-          path: "features",
+          path: "/features",
         },
         {
           name: "Intelligent Analytics",
           // path: "features#intelligent-analytics",
 
-          path: "features",
+          path: "/features",
         },
         {
           name: "Smart Dashboard",
           // path: "features#smart-dashboard"
-          path: "features",
+          path: "/features",
         },
         {
           name: "Secure and Private",
           // path: "features#secure-and-private"
-          path: "features",
+          path: "/features",
         },
         {
           name: "Real-Time Updates & Notifications",
-          path: "features#real-time-updates",
+          path: "/features#real-time-updates",
         },
         {
           name: "Historical Trends & Performance Analysis",
-          path: "features#historical-trends",
+          path: "/features#historical-trends",
         },
         {
           name: "Integration with Sportsbooks",
-          path: "features#sports-books",
+          path: "/features#sports-books",
         },
         {
           name: "Customizable Alerts & Settings",
-          path: "features#customizable-alerts",
+          path: "/features#customizable-alerts",
         },
         {
           name: "Advanced Data Visualization",
-          path: "features#data-visualization",
+          path: "/features#data-visualization",
         },
         {
           name: "Responsible Gambling Tools",
-          path: "features#responsible-gambling",
+          path: "/features#responsible-gambling",
         },
-        { name: "Cross-Platform Sync", path: "features#cross-platform-sync" },
+        { name: "Cross-Platform Sync", path: "/features#cross-platform-sync" },
         {
           name: "Personalized User Experience",
-          path: "features#personalized-experience",
+          path: "/features#personalized-experience",
         },
       ],
     },
     {
       name: "Pricing",
-      path: "pricing",
+      path: "/pricing",
       hasDropdown: false,
     },
     {
       name: "About",
-      path: "about",
+      path: "/about",
       hasDropdown: false,
     },
-    {
-      name: "Blog",
-      path: "blog",
-      hasDropdown: false,
-    },
+    // {
+    //   name: "Blog",
+    //   path: "/blog",
+    //   hasDropdown: false,
+    // },
     {
       name: "Support",
-      path: "support",
+      path: "/support",
       hasDropdown: false,
     },
   ];
@@ -292,7 +292,7 @@ const Navbar = () => {
                   </Link>
                 )}
 
-                {/* Mega Dropdown for Features */}
+                {/* Dropdown */}
                 {item.hasDropdown && (
                   <AnimatePresence>
                     {activeDropdown === item.name && (
@@ -301,7 +301,6 @@ const Navbar = () => {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: 10 }}
                         transition={{ duration: 0.2 }}
-                        // className="fixed left-0 right-0 mt-2 mx-auto bg-gray-800/95 backdrop-blur-md rounded-lg shadow-2xl py-6 px-4 z-20"
                         className="absolute left-1/2 transform -translate-x-1/2 max-lg:-translate-x-1/3 mt-2 bg-gray-800/95 backdrop-blur-md rounded-lg shadow-2xl py-6 px-4 z-20"
                         style={{
                           width: "min(90vw, 1024px)",

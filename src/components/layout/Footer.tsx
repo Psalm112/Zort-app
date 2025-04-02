@@ -18,32 +18,32 @@ import { BsInstagram, BsTiktok } from "react-icons/bs";
 const Footer = () => {
   const [showScrollTop, setShowScrollTop] = useState(false);
 
-  // Updated footer links organized by sections
+  // footer links organized by sections
   const footerLinks = {
     features: [
-      { name: "AI Bet Slip Scanner", href: "#scanner" },
-      { name: "Smart Analytics", href: "#analytics" },
-      { name: "Interactive Dashboard", href: "#dashboard" },
-      { name: "Mobile App", href: "#app" },
-      { name: "Notifications", href: "#notifications" },
+      { name: "AI Bet Slip Scanner", href: "/features" },
+      { name: "Intelligent Analytics", href: "/features" },
+      { name: "Smart Dashboard", href: "/features" },
+      { name: "Secure & Private", href: "/features" },
+      { name: "Real-Time Updates", href: "/features#real-time-updates" },
     ],
     company: [
       { name: "About", href: "/about" },
-      { name: "Contact", href: "/contact" },
+      { name: "Contact", href: "/about#contact" },
       { name: "Careers", href: "#careers" },
-      { name: "Responsible Gambling", href: "/responsible-gambling" },
+      { name: "Responsible Gambling", href: "#responsible-gambling" },
       { name: "News", href: "#news" },
     ],
     support: [
-      { name: "Help Center", href: "#help" },
-      { name: "FAQ", href: "/faq" },
-      { name: "Community", href: "#community" },
-      { name: "Tutorials", href: "#tutorials" },
-      { name: "Contact Support", href: "/contact" },
+      { name: "Help Center", href: "/support" },
+      { name: "FAQ", href: "/support#faqs" },
+      { name: "Community", href: "/support#community" },
+      { name: "Tutorials", href: "/support#guides" },
+      { name: "Contact Support", href: "/support#contact" },
     ],
     legal: [
-      { name: "Privacy Policy", href: "/privacy" },
-      { name: "Terms of Service", href: "/terms" },
+      { name: "Privacy Policy", href: "#privacy" },
+      { name: "Terms of Service", href: "#terms" },
       { name: "Cookie Policy", href: "#cookies" },
       { name: "Data Protection", href: "#data-protection" },
       { name: "Licensing", href: "#licensing" },
@@ -64,7 +64,7 @@ const Footer = () => {
     },
   ];
 
-  // Check scroll position to show/hide scroll-to-top button
+  // show/hide scroll-to-top button
   useEffect(() => {
     const handleScroll = () => {
       setShowScrollTop(window.scrollY > 500);

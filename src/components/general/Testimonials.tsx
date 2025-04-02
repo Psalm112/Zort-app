@@ -8,7 +8,7 @@ import User2 from "../../../public/images/avatars/user2.jpeg";
 import User3 from "../../../public/images/avatars/user3.jpeg";
 import Betrus from "../../../public/images/avatars/betrus.jpeg";
 
-// Helper function to merge refs
+// function to merge refs
 function mergeRefs<T>(
   ...refs: (React.Ref<T> | undefined)[]
 ): React.RefCallback<T> {
@@ -212,7 +212,7 @@ const Testimonials = () => {
             </motion.div>
           </AnimatePresence>
 
-          {/* Combined navigation and slider indicators */}
+          {/* navigation and slider indicators */}
           {testimonials.length > testimonialsPerPage && (
             <div className="mt-8 flex items-center justify-center space-x-4">
               <button

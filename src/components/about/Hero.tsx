@@ -119,7 +119,6 @@ const Hero = () => {
           >
             <div className="relative w-full max-w-2xl pt-8 pb-8 px-6 md:px-12">
               <div className="relative w-full aspect-video overflow-hidden rounded-2xl">
-                {/* HTML5 Video Element with Autoplay, Loop, Muted, and Poster */}
                 <video
                   ref={videoRef}
                   className="w-full h-full object-cover absolute inset-0"
@@ -134,7 +133,7 @@ const Hero = () => {
                   Your browser does not support the video tag.
                 </video>
               </div>
-              {/* Floating Feature Cards (Adjusted for unobtrusiveness) */}
+              {/* Floating Feature Cards */}
               <motion.div
                 className="hidden md:block absolute bottom-10 left-10 p-2 bg-gray-900/70 backdrop-blur-sm rounded-lg shadow-lg border border-gray-800 z-20"
                 initial={{ opacity: 0, x: -20 }}
@@ -178,7 +177,7 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* Enhanced Animated Background Elements */}
+      {/* Animated Background */}
       <div className="absolute inset-0 overflow-hidden">
         <motion.div
           className="absolute -top-24 -right-24 w-96 h-96 bg-blue-500 rounded-full opacity-10 blur-3xl"

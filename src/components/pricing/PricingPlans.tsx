@@ -140,7 +140,7 @@ const PricingPlans: React.FC = () => {
                 transition={{ duration: 0.6, delay: 0.3 }}
                 viewport={{ once: true }}
               >
-                £0
+                &pound;0
               </motion.span>
               <span className="text-gray-400 ml-1">/month</span>
             </div>
@@ -216,7 +216,7 @@ const PricingPlans: React.FC = () => {
                 transition={{ duration: 0.6, delay: 0.4 }}
                 viewport={{ once: true }}
               >
-                £{getPrice(9.99)}
+                &pound;{getPrice(9.99)}
               </motion.span>
               <span className="text-gray-400 ml-1">/month</span>
             </div>
@@ -278,7 +278,7 @@ const PricingPlans: React.FC = () => {
                 transition={{ duration: 0.6, delay: 0.5 }}
                 viewport={{ once: true }}
               >
-                £{getPrice(19.99)}
+                &pound;{getPrice(19.99)}
               </motion.span>
               <span className="text-gray-400 ml-1">/month</span>
             </div>

@@ -68,6 +68,7 @@ const Community = () => {
   return (
     <section
       ref={ref}
+      id="community"
       className="relative py-20 px-4 sm:px-6 lg:px-8 overflow-hidden"
     >
       <div className="container mx-auto max-w-6xl">

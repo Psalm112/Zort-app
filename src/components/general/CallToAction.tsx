@@ -21,7 +21,7 @@ const CallToAction = () => {
   const phoneScale = useTransform(scrollYProgress, [0.3, 0.8], [0.8, 1]);
   const phoneOpacity = useTransform(scrollYProgress, [0.3, 0.6], [0, 1]);
 
-  // Sample data for the chart
+  // data for the chart
   const data = [
     { name: "Mon", profit: 5.2 },
     { name: "Tue", profit: 8.1 },
@@ -148,7 +148,7 @@ const CallToAction = () => {
                     </div>
 
                     <div className="h-32 bg-gray-800 rounded-lg p-2">
-                      {/* Recharts Line Chart */}
+                      {/* Line Chart */}
                       <ResponsiveContainer width="100%" height="100%">
                         <LineChart data={data}>
                           <XAxis
