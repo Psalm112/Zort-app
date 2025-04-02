@@ -61,13 +61,14 @@ const Hero = () => {
   };
 
   if (!isMounted) {
-    return <div className="min-h-screen"></div>;
+    return <div className="h-screen"></div>;
   }
 
   return (
-    <section className="relative min-h-screen flex items-center py-12 md:py-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
-      <div className="container mx-auto max-w-7xl">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
+    <section className="relative py-24 sm:py-28 md:py-32 lg:py-36 px-4 sm:px-6 lg:px-8 overflow-hidden">
+      {/* Max height constraint for large screens */}
+      <div className="container mx-auto max-w-7xl h-full max-h-screen flex items-center justify-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 lg:gap-12 items-center py-6 sm:py-8 md:py-10 lg:py-12">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
@@ -75,7 +76,7 @@ const Hero = () => {
             className="text-center lg:text-left z-10"
           >
             <motion.h1
-              className="text-3xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4 md:mb-6"
+              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight mb-3 sm:mb-4 md:mb-6"
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.2 }}
@@ -86,7 +87,7 @@ const Hero = () => {
               </span>
             </motion.h1>
             <motion.p
-              className="text-base md:text-lg text-gray-300 mb-6 md:mb-8 max-w-lg mx-auto lg:mx-0"
+              className="text-sm sm:text-base md:text-lg text-gray-300 mb-4 sm:mb-6 md:mb-8 max-w-lg mx-auto lg:mx-0"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.4 }}
@@ -118,7 +119,7 @@ const Hero = () => {
 
             {/* Feature indicators */}
             <motion.div
-              className="mt-8 md:mt-12 grid grid-cols-3 gap-2 md:gap-4 max-w-md mx-auto lg:mx-0 max-lg:mb-4"
+              className="mt-6 sm:mt-8 md:mt-10 grid grid-cols-3 gap-2 md:gap-4 max-w-md mx-auto lg:mx-0 max-lg:mb-4"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.8 }}
@@ -150,8 +151,8 @@ const Hero = () => {
             transition={{ duration: 0.8, delay: 0.3 }}
             className="relative z-10 flex justify-center lg:justify-end"
           >
-            {/* Phone Mockup */}
-            <div className="relative w-64 sm:w-72 md:w-80 lg:w-96 h-full">
+            {/* Phone Mockup - responsive sizing */}
+            <div className="relative w-56 sm:w-64 md:w-72 lg:w-80 xl:w-96 h-full">
               {/* Floating animation for phone */}
               <motion.div
                 className="relative"
@@ -168,17 +169,17 @@ const Hero = () => {
               >
                 {/* Phone Notch */}
                 <div
-                  className="absolute top-2 left-1/2 transform -translate-x-1/2 w-20 md:w-24 h-5 md:h-6 bg-black z-30 rounded-b-xl"
+                  className="absolute top-2 left-1/2 transform -translate-x-1/2 w-16 sm:w-20 md:w-24 h-4 sm:h-5 md:h-6 bg-black z-30 rounded-b-xl"
                   style={{ boxShadow: "0 0 0 2px rgba(40,40,40,1)" }}
                 ></div>
 
                 {/* Phone Device Frame */}
                 <div
-                  className="relative w-full aspect-[9/19] rounded-[2.5rem] overflow-hidden bg-black shadow-2xl"
+                  className="relative w-full aspect-[9/19] rounded-[2rem] sm:rounded-[2.5rem] overflow-hidden bg-black shadow-2xl"
                   style={{ boxShadow: "0 0 40px rgba(101,101,255,0.3)" }}
                 >
                   {/* Screen Content with Animation */}
-                  <div className="absolute inset-0 overflow-hidden rounded-[2.3rem]">
+                  <div className="absolute inset-0 overflow-hidden rounded-[1.8rem] sm:rounded-[2.3rem]">
                     <AnimatePresence mode="wait">
                       <motion.div
                         key={currentScreen}
@@ -202,8 +203,8 @@ const Hero = () => {
                         />
 
                         {/* Screen info overlay */}
-                        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-3 md:p-4 pt-8 md:pt-12">
-                          <h3 className="text-white font-bold text-base md:text-lg">
+                        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-2 sm:p-3 md:p-4 pt-6 sm:pt-8 md:pt-12">
+                          <h3 className="text-white font-bold text-sm sm:text-base md:text-lg">
                             {screens[currentScreen].title}
                           </h3>
                           <p className="text-gray-300 text-xs md:text-sm">
@@ -216,7 +217,7 @@ const Hero = () => {
 
                   {/* Phone Frame Overlay */}
                   <div
-                    className="absolute inset-0 rounded-[2.5rem] border border-gray-800 pointer-events-none"
+                    className="absolute inset-0 rounded-[2rem] sm:rounded-[2.5rem] border border-gray-800 pointer-events-none"
                     style={{
                       boxShadow:
                         "inset 0 0 10px rgba(0,0,0,0.7), inset 0 0 3px rgba(255,255,255,0.1)",
@@ -224,19 +225,19 @@ const Hero = () => {
                   ></div>
 
                   {/* Screen Reflections */}
-                  <div className="absolute inset-0 opacity-20 overflow-hidden rounded-[2.3rem] pointer-events-none">
+                  <div className="absolute inset-0 opacity-20 overflow-hidden rounded-[1.8rem] sm:rounded-[2.3rem] pointer-events-none">
                     <div className="absolute -left-10 top-0 w-40 h-40 bg-blue-400 rotate-45 blur-xl opacity-20"></div>
                     <div className="absolute right-0 bottom-20 w-32 h-32 bg-purple-500 rotate-12 blur-xl opacity-30"></div>
                   </div>
 
                   {/* Side Buttons */}
-                  <div className="absolute -right-1 top-28 w-1 h-10 md:h-12 bg-gray-800 rounded-l-md"></div>
-                  <div className="absolute -left-1 top-24 w-1 h-6 md:h-8 bg-gray-800 rounded-r-md"></div>
-                  <div className="absolute -left-1 top-36 w-1 h-10 md:h-12 bg-gray-800 rounded-r-md"></div>
+                  <div className="absolute -right-1 top-28 w-1 h-8 sm:h-10 md:h-12 bg-gray-800 rounded-l-md"></div>
+                  <div className="absolute -left-1 top-24 w-1 h-5 sm:h-6 md:h-8 bg-gray-800 rounded-r-md"></div>
+                  <div className="absolute -left-1 top-36 w-1 h-8 sm:h-10 md:h-12 bg-gray-800 rounded-r-md"></div>
                 </div>
 
                 {/* Navigation Controls */}
-                <div className="absolute -bottom-16 sm:-bottom-12 left-0 right-0 flex flex-col">
+                <div className="absolute -bottom-12 sm:-bottom-10 left-0 right-0 flex flex-col">
                   <div className="flex flex-row items-center mx-auto gap-2 md:gap-4">
                     {/* Alternative Stats Element for Small Screens Only */}
                     <motion.div
@@ -253,7 +254,7 @@ const Hero = () => {
                     >
                       <div className="flex items-center space-x-2">
                         <div className="w-5 h-5 rounded-full bg-blue-500/20 flex items-center justify-center">
-                          <BarChart2 size={14} className="text-blue-400" />
+                          <BarChart2 size={12} className="text-blue-400" />
                         </div>
                         <div>
                           <p className="text-xs text-gray-400">Win Rate</p>
@@ -318,9 +319,12 @@ const Hero = () => {
                 </div>
               </motion.div>
 
-              {/* Trophy */}
+              {/* Trophy - adjusted for better responsiveness */}
               <motion.div
-                className="absolute -right-4 sm:-right-6 lg:-right-10 -top-6 sm:-top-8 lg:-top-14 w-24 sm:w-28 lg:w-36 h-24 sm:h-28 lg:h-36"
+                className="absolute -right-2 sm:-right-4 lg:-right-8 xl:-right-10 
+                          -top-4 sm:-top-6 md:-top-8 lg:-top-12 xl:-top-14 
+                          w-20 sm:w-24 md:w-28 lg:w-32 xl:w-36 
+                          h-20 sm:h-24 md:h-28 lg:h-32 xl:h-36"
                 initial={{ opacity: 0, x: 20, y: 20, rotate: -15 }}
                 animate={{ opacity: 1, x: 0, y: 0, rotate: 0 }}
                 transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}
@@ -408,7 +412,7 @@ const Hero = () => {
 
                 {/* Achievement badge */}
                 <motion.div
-                  className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-blue-600 via-blue-500 to-indigo-600 px-2 py-0.5 md:px-3 md:py-1 rounded-md shadow-lg z-40"
+                  className="absolute -bottom-2 sm:-bottom-3 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-blue-600 via-blue-500 to-indigo-600 px-2 py-0.5 md:px-3 md:py-1 rounded-md shadow-lg z-40"
                   initial={{ opacity: 0, y: 10, scale: 0.8 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   transition={{ delay: 1.2, type: "spring", stiffness: 120 }}
@@ -433,11 +437,11 @@ const Hero = () => {
                 </motion.div>
               </motion.div>
 
-              {/* Floating Stats */}
+              {/* Floating Stats - adjusted positioning */}
               <motion.div
-                className="absolute hidden sm:block lg:block 
-                           sm:-left-6 md:-left-8 lg:-left-16 
-                           sm:top-24 md:top-28 lg:top-32 
+                className="absolute hidden sm:block
+                           sm:-left-4 md:-left-6 lg:-left-10 xl:-left-16 
+                           sm:top-20 md:top-24 lg:top-28 xl:top-32 
                            bg-gray-900/90 backdrop-blur-sm p-2 sm:p-3 rounded-lg border border-gray-800
                            w-auto"
                 initial={{ opacity: 0, x: -20, y: 20 }}
@@ -449,7 +453,7 @@ const Hero = () => {
                 }}
               >
                 <div className="flex items-center space-x-2">
-                  <div className="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 rounded-full bg-blue-500/20 flex items-center justify-center">
+                  <div className="w-6 h-6 sm:w-6 sm:h-6 md:w-7 md:h-7 lg:w-8 lg:h-8 rounded-full bg-blue-500/20 flex items-center justify-center">
                     <BarChart2 size={14} className="text-blue-400" />
                   </div>
                   <div>
@@ -469,11 +473,11 @@ const Hero = () => {
                 </div>
               </motion.div>
 
-              {/* Floating Notification Element */}
+              {/* Floating Notification Element - adjusted positioning */}
               <motion.div
                 className="absolute hidden sm:block
-                           sm:-right-2 md:-right-4 lg:-right-10
-                           sm:bottom-24 md:bottom-28 lg:bottom-32
+                           sm:-right-2 md:-right-4 lg:-right-6 xl:-right-10
+                           sm:bottom-20 md:bottom-24 lg:bottom-28 xl:bottom-32
                            bg-gray-900/90 backdrop-blur-sm p-2 rounded-lg border border-gray-800
                            max-w-[110px]"
                 initial={{ opacity: 0, scale: 0, x: 20 }}
@@ -514,7 +518,7 @@ const Hero = () => {
       {/* Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
         <motion.div
-          className="absolute -top-24 -right-24 w-72 sm:w-96 h-72 sm:h-96 bg-blue-500 rounded-full opacity-10 blur-3xl"
+          className="absolute -top-24 -right-24 w-64 sm:w-72 md:w-80 lg:w-96 h-64 sm:h-72 md:h-80 lg:h-96 bg-blue-500 rounded-full opacity-10 blur-3xl"
           animate={{
             scale: [1, 1.2, 1],
             x: [0, 20, 0],
@@ -527,7 +531,7 @@ const Hero = () => {
           }}
         ></motion.div>
         <motion.div
-          className="absolute -bottom-24 -left-24 w-72 sm:w-96 h-72 sm:h-96 bg-purple-500 rounded-full opacity-10 blur-3xl"
+          className="absolute -bottom-24 -left-24 w-64 sm:w-72 md:w-80 lg:w-96 h-64 sm:h-72 md:h-80 lg:h-96 bg-purple-500 rounded-full opacity-10 blur-3xl"
           animate={{
             scale: [1, 1.3, 1],
             x: [0, -20, 0],
@@ -542,7 +546,7 @@ const Hero = () => {
         ></motion.div>
 
         <motion.div
-          className="absolute top-1/4 left-1/3 w-48 sm:w-64 h-48 sm:h-64 bg-indigo-500 rounded-full opacity-5 blur-3xl"
+          className="absolute top-1/4 left-1/3 w-40 sm:w-48 md:w-56 lg:w-64 h-40 sm:h-48 md:h-56 lg:h-64 bg-indigo-500 rounded-full opacity-5 blur-3xl"
           animate={{
             scale: [1, 1.2, 1],
             rotate: [0, 10, 0],
