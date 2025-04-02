@@ -18,7 +18,7 @@ export interface ChartDataPayload {
 export interface ChartDataItem {
   dataKey: string;
   name: string;
-  type?: any;
+  type?: "line" | "bar" | "area" | "scatter" | "pie" | "radar" | "radialBar";
   value: number;
   payload: ChartDataPayload;
 }
@@ -31,14 +31,14 @@ export interface ChartItemPayload {
 }
 
 export interface ChartItem {
-  chartType?: any;
+  chartType?: "line" | "bar" | "area" | "pie" | "scatter" | "radar" | "radialBar";
   color?: string;
   dataKey: string;
-  formatter?: any;
+  formatter?: (value: string | number, name: string) => string;
   hide: boolean;
   name: string;
-  type?: any;
-  unit?: any;
+  type?: "monotone" | "natural" | "basis" | "linear" | "step" | "stepBefore" | "stepAfter";
+  unit?: string | number;
   value: number;
   payload: ChartItemPayload;
   radius: Record<number, number>;

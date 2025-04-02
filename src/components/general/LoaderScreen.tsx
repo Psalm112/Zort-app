@@ -1,12 +1,7 @@
 "use client";
 
 import React, { useEffect } from "react";
-import {
-  motion,
-  Variants,
-  Transition,
-  TargetAndTransition,
-} from "framer-motion";
+import { motion, Variants, Transition } from "framer-motion";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
@@ -61,7 +56,7 @@ const LoaderScreen: React.FC = () => {
     },
   };
 
-  // Create properly typed variants for bars
+  // variants for bars
   const barVariants: Variants = {
     hidden: { scaleX: 0 },
     visible: {
