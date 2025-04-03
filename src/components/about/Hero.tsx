@@ -174,13 +174,13 @@ const Hero = () => {
     >
       <div className="container mx-auto max-w-7xl">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 items-center relative z-10">
-          {/* Left Content */}
+          {/* Left Content - Always visible regardless of video state */}
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             className="lg:col-span-5 text-center lg:text-left z-10"
-            style={{ opacity, y }}
+            style={{ opacity }} // Keep opacity tied to scroll but not to video loading
           >
             <motion.h1
               className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4 md:mb-6"
@@ -235,23 +235,28 @@ const Hero = () => {
           {/* Video Container */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
+            animate={{ opacity: isVideoLoaded ? 1 : 0.5, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.3 }}
             className="lg:col-span-7 relative flex justify-center"
-            style={{ opacity }}
+            style={{ opacity: isVideoLoaded ? opacity : 0.5 }} // Reduced opacity when not loaded
           >
             <div className="relative w-full max-w-2xl pt-8 pb-8 px-6 md:px-12">
-              <div className="relative w-full aspect-video overflow-hidden rounded-2xl">
-                {/* Placeholder gradient shown when video isn't loaded */}
-                {(!isVideoLoaded || !isMounted) && (
-                  <div className="absolute inset-0 bg-gradient-to-br from-gray-900 to-gray-800 flex items-center justify-center">
-                    <div className="text-center">
-                      <div className="inline-block w-12 h-12 rounded-full border-4 border-blue-500/20 border-t-blue-500 animate-spin mb-3"></div>
-                      <p className="text-gray-400 text-sm">Loading video...</p>
-                    </div>
+              {/* Loading State - Visible when video isn't loaded/mounted */}
+              {(!isVideoLoaded || !isMounted) && (
+                <div className="absolute inset-0 z-10 flex items-center justify-center">
+                  <div className="text-center bg-gray-900/80 p-6 rounded-xl backdrop-blur-sm">
+                    <div className="inline-block w-12 h-12 rounded-full border-4 border-blue-500/20 border-t-blue-500 animate-spin mb-3"></div>
+                    <p className="text-gray-300 font-medium">
+                      Loading video...
+                    </p>
+                    <p className="text-gray-400 text-sm mt-2">
+                      Preparing your AI betting experience
+                    </p>
                   </div>
-                )}
+                </div>
+              )}
 
+              <div className="relative w-full aspect-video overflow-hidden rounded-2xl border border-gray-800 shadow-2xl">
                 {isMounted && (
                   <LazyVideo
                     src="/videos/about.mp4"
@@ -260,8 +265,8 @@ const Hero = () => {
                 )}
               </div>
 
-              {/* Feature Cards*/}
-              {isMounted && (
+              {/* Feature Cards - Only show when video is loaded */}
+              {isMounted && isVideoLoaded && (
                 <>
                   <FeatureCard
                     position="bottom-10 left-10"
