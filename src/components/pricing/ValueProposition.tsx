@@ -70,7 +70,7 @@ const ValueProposition: React.FC = () => {
   };
 
   return (
-    <section className="py-24 relative">
+    <section className="py-24 relative px-4 sm:px-6 lg:px-8">
       <div className="absolute inset-0 -z-10">
         <div className="absolute top-1/3 right-1/4 w-72 h-72 bg-gradient-to-br from-purple-600/20 to-blue-600/20 rounded-full filter blur-[100px]"></div>
       </div>
@@ -323,18 +323,18 @@ const ValueProposition: React.FC = () => {
         </div>
 
         <div
-          className="text-center mt-20"
+          className="text-center mt-10 sm:mt-14 md:mt-16 lg:mt-20"
           data-aos="fade-up"
           data-aos-delay="100"
         >
-          <div className="inline-flex items-center space-x-6 py-3 px-6 bg-gray-800/30 backdrop-blur-sm rounded-full border border-gray-700">
-            <span className="text-sm font-medium">Trusted by</span>
-            <div className="h-6 w-px bg-gray-700"></div>
-            <div className="flex items-center space-x-6">
+          <div className="inline-flex flex-col sm:flex-row items-center sm:space-x-4 md:space-x-6 py-3 px-4 sm:px-6 sm:bg-gray-800/30 backdrop-blur-sm rounded-full border max-sm:border-none border-gray-700">
+            <span className="text-sm font-medium mb-2 sm:mb-0">Trusted by</span>
+            <div className="h-px w-16 sm:h-6 sm:w-px bg-gray-700 mb-2 sm:mb-0"></div>
+            <div className="flex flex-wrap justify-center gap-4 sm:flex-nowrap sm:items-center sm:space-x-3 md:space-x-6">
               {partners.map((partner, index) => (
                 <motion.div
                   key={index}
-                  className="h-10 w-24 rounded-full flex items-center justify-center"
+                  className="h-8 sm:h-10 w-20 sm:w-24 rounded-full flex items-center justify-center"
                   initial={{ opacity: 0, y: 10 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.4, delay: index * 0.1 }}
@@ -347,12 +347,12 @@ const ValueProposition: React.FC = () => {
                         alt={partner.name}
                         width={120}
                         height={60}
-                        className="object-contain h-8 w-auto"
+                        className="object-contain h-6 sm:h-8 w-auto"
                       />
                     </div>
                   ) : (
-                    <div className="bg-gray-800 bg-opacity-50 rounded-lg py-4 px-6 text-center">
-                      <span className="text-lg font-semibold text-gray-300">
+                    <div className="bg-gray-800 bg-opacity-50 rounded-lg py-2 sm:py-4 px-3 sm:px-6 text-center">
+                      <span className="text-sm sm:text-lg font-semibold text-gray-300">
                         {partner.name}
                       </span>
                     </div>

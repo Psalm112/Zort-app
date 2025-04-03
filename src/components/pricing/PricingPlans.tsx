@@ -78,7 +78,7 @@ const PricingPlans: React.FC = () => {
   };
 
   return (
-    <section id="pricing-plans" className="py-16 relative">
+    <section id="pricing-plans" className="py-16 relative px-4 sm:px-6 lg:px-8">
       <div className="absolute -z-10 w-full h-full">
         <div className="absolute left-1/4 top-1/4 w-64 h-64 bg-purple-600/20 rounded-full filter blur-[100px]"></div>
         <div className="absolute right-1/4 bottom-1/4 w-64 h-64 bg-blue-600/20 rounded-full filter blur-[100px]"></div>
