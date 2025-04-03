@@ -165,7 +165,7 @@ const Hero = () => {
 
   // Use transform with memoized values
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-  const y = useTransform(scrollYProgress, [0, 0.5], [0, 100]);
+  // const y = useTransform(scrollYProgress, [0, 0.5], [0, 100]);
 
   return (
     <section
